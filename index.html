@@ -1,1 +1,159 @@
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et blanditiis a placeat quisquam nemo ut necessitatibus exercitationem dolores iure dolore minus rerum magnam praesentium id temporibus tempore labore, pariatur quam.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game 2</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/myCss.css">
+    <!-- <script src="https://unpkg.com/feather-icons"></script> -->
+</head>
+<body>
+    <div class="container text-center">
+        <div class="row" id="page-header">
+            <div class="col-12">
+                <div class="alert alert-success" id="playerNameHolder" role="alert">
+                    Be ready to play the GAME !!!
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-auto" id="start-game-btn-section">
+            <div class="col-12 p-2">
+                <button id="start-game-btn" class="btn btn-primary mr-2">Start Game!</button>
+            </div>
+          </div>
+        <div class="row invisible" id="dice-section">
+          <div class="col-12 main" id="dice-container">
+            <!-- <img src="/pic/dicePic/dice1.png" class="img-thumbnail border-0" alt="1">
+            <img src="/pic/dicePic/Dice2.png" class="img-thumbnail border-0" alt="2">
+            <img src="/pic/dicePic/Dice3.png" class="img-thumbnail border-0" alt="3">
+            <img src="/pic/dicePic/Dice4.png" class="img-thumbnail border-0" alt="4">
+            <img src="/pic/dicePic/Dice5.png" class="img-thumbnail border-0" alt="5">
+            <img src="/pic/dicePic/Dice6.png" class="img-thumbnail border-0" alt="6"> -->
+          </div>
+        </div>
+        <div class="row invisible" id="roll-end-bnt-section">
+            <div class="col-6 p-2">
+                <button id="roll-dice-btn" class="btn btn-primary mr-2">Roll Dice!</button>
+            </div>
+            <div class="col-6 p-2">
+                <button id="end-turn" class="btn btn-primary mr-2">End turn <i data-feather="chevrons-right"></i></button>
+            </div>
+          </div>
+          <div class="row invisible" id="resalt-table-section">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Player#1</th>
+                        <th scope="col">Player#2</th>
+                        <th scope="col">Player#3</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Combo</th>
+                        <td colspan="3">***</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Small strit</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Big Strit</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Full</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Success</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pocker</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total Score</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  <!-- The modal window -->
+  <div id="playerNameModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Players name:</h2>
+      <input type="text" class="form-control" id="playerNameInput" placeholder="Serun Hatniy">
+      <button class="btn btn-primary" id="submitBtn">Submit</button>
+    </div>
+  </div>
+
+
+    <script src="js/bootstrap.bundle.js"></script>
+    <!-- <script>
+        feather.replace()
+    </script> -->
+    <script src="js/lib/actions.js" type="module"></script>
+    <script src="js/models/dice.js" type="module"></script>
+    <script src="js/modules/payerNameGetterModal.js" type="module"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
