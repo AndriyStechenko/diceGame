@@ -1,7 +1,9 @@
-const player = {
-    name: 'Serhiy'
+export default class Player {
+    constructor () {
+        this.name = 'Serhiy'
+    }
+
+    setName(name) {
+        this.name = name
+    }
 }
-
-
-
-export default player
