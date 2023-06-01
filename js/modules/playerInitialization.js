@@ -2,26 +2,18 @@ import Player from "/js/models/player.js"
 import {readFromStorage, saveToStorage} from '/js/modules/storage.js'
 
 function initializePlayer (name) {
-    let newPlayer = readFromStorage('player')
-
-    // if (newPlayer) {
-    //     newPlayer.name = name
-    // } else {
-    //     newPlayer = Object.assign(player)
-    //     newPlayer.name = name
-    //     saveToStorage('player', newPlayer)
-    // }
-
-    if (newPlayer) {
-        newPlayer.name = name
+    let existingPlayerObj = readFromStorage('player')
+    let currentPlayer = new Player
+    if (existingPlayerObj) {
+        currentPlayer.setName(existingPlayerObj.name) 
+        // console.log('existingPlayer:',existingPlayerObj)
     } else {
-        newPlayer = new Player
-        newPlayer.name = name
-        saveToStorage('player', newPlayer)
+        currentPlayer.setName(name)
+        saveToStorage('player', currentPlayer)
+        // console.log('currentPlayer:',currentPlayer)
     }
 
-
-    return newPlayer
+    return currentPlayer
 }
 
 export {initializePlayer}

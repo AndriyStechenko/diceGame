@@ -34,12 +34,12 @@
             <img src="/pic/dicePic/Dice6.png" class="img-thumbnail border-0" alt="6"> -->
           </div>
         </div>
-        <div class="row invisible" id="roll-end-bnt-section">
+        <div class="row">
             <div class="col-6 p-2">
-                <button id="roll-dice-btn" class="btn btn-primary mr-2">Roll Dice!</button>
+                <button id="roll-dice-btn" class="btn btn-primary mr-2 invisible">Roll Dice!</button>
             </div>
             <div class="col-6 p-2">
-                <button id="end-turn" class="btn btn-primary mr-2">End turn <i data-feather="chevrons-right"></i></button>
+                <button id="end-turn-btn" class="btn btn-primary mr-2 invisible">End turn <i data-feather="chevrons-right"></i></button>
             </div>
           </div>
           <div class="row invisible" id="resalt-table-section">
@@ -48,47 +48,47 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Player#1</th>
-                        <th scope="col">Player#2</th>
+                        <th scope="col" id="player1Name">Player#1</th>
+                        <th scope="col" id="player2Name">Player#2</th>
                         <th scope="col">Player#3</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td id="mark"></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">3</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">4</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">5</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">6</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                       </tr>
                       <tr>
                         <th scope="row">Combo</th>
@@ -153,7 +153,7 @@
     </script> -->
     <script src="js/lib/actions.js" type="module"></script>
     <script src="js/models/dice.js" type="module"></script>
-    <script src="js/modules/payerNameGetterModal.js" type="module"></script>
+    <script src="js/modules/playerNameGetterModul.js" type="module"></script>
     <script src="js/app.js" type="module"></script>
 </body>
 </html>

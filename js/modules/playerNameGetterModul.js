@@ -1,4 +1,7 @@
+import { initializeScoreTable } from "./scoreTableInitialization.js";
 import { initializePlayer } from "/js/modules/playerInitialization.js";
+import {readFromStorage} from '/js/modules/storage.js'
+
 
 const playerNameModal = document.getElementById("playerNameModal");
 const closeBtn = document.getElementsByClassName("close")[0];
@@ -11,7 +14,15 @@ function closeModal() {
 }
 
 function createNewPlayerFromModal() {
-  playerNameModal.style.display = "block";
+  if (_playerIsKnown()) { 
+    return;
+  } else {
+    playerNameModal.style.display = "block";
+  }
+}
+
+function _playerIsKnown() {
+  return readFromStorage('player') ? true : false;
 }
 
 function submitPlayersNameFromModyle() {
@@ -23,8 +34,8 @@ function submitPlayersNameFromModyle() {
   }
   closeModal();
   let player = initializePlayer(playerName);
-  playerNameHolder.innerHTML = `Player ${playerName} turn!`;
-
+  playerNameHolder.innerHTML = `Player ${playerName} turn!`;// name from memory 
+  
   return player;
 }
 
