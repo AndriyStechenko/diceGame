@@ -12,4 +12,8 @@ function readFromStorage (key) {
     return data
 }
 
-export {saveToStorage, readFromStorage}
+function deleteFromStorage (key) {
+    return localStorage.removeItem(key)
+}
+
+export {saveToStorage, readFromStorage, deleteFromStorage}

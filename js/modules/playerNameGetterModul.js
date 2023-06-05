@@ -13,16 +13,17 @@ function closeModal() {
   playerNameModal.style.display = "none";
 }
 
+function _playerIsKnown() {
+  return readFromStorage('player') ? true : false;
+}
+
+
 function createNewPlayerFromModal() {
   if (_playerIsKnown()) { 
     return;
   } else {
     playerNameModal.style.display = "block";
   }
-}
-
-function _playerIsKnown() {
-  return readFromStorage('player') ? true : false;
 }
 
 function submitPlayersNameFromModyle() {

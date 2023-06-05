@@ -1,6 +1,6 @@
 // import { askPlayersName } from "/js/lib/actions.js";
 import {createDicesWithDiceValues, drawAllDices} from '/js/modules/dicesDrawer.js'
-import {saveToStorage } from "/js/modules/storage.js";
+import {saveToStorage, deleteFromStorage } from "/js/modules/storage.js";
 import {initializeTurn} from '/js/modules/turnInitialization.js'
 import {submitPlayersNameFromModyle} from '/js/modules/playerNameGetterModul.js'
 import {createNewPlayerFromModal} from '/js/modules/playerNameGetterModul.js'
@@ -16,7 +16,6 @@ const endRollBtn = document.getElementById('end-turn-btn')
 
 function _makeDiceSectionVisible () {
     let diceSectionElement = document.getElementById('dice-section')
-    console.log(diceSectionElement)
     diceSectionElement.classList.toggle("invisible");
 }
 
@@ -27,23 +26,35 @@ function showEndTurnBnt () {
 function showRollDiceBtn () {
     rollDiceBtn.classList.toggle("invisible");
 }
+
+function eraseDicesContainer () {
+    let diceSectionElement = document.getElementById('dice-container')
+    diceSectionElement.innerHTML = "";
+}
+
+function deleteDicesFromMemory () {
+    deleteFromStorage('currentTurn')
+}
+
 function startGameHandler () {
     // alert('Play with PC and rool dices')
     createNewPlayerFromModal()
     showRollDiceBtn()
     _makeDiceSectionVisible()
     initializeScoreTable()
-    
 }
 
 function rollDice () {
     let dices = createDicesWithDiceValues()
+    turn.clearDices()
     dices.forEach(dice => { turn.dices.push(dice) });
     drawAllDices(dices)
     saveToStorage('currentTurn', turn)
 }
 
 function afterRollDiceActions () {
+    eraseDicesContainer()
+    deleteDicesFromMemory()
     rollDice()
     scoreTableResultSum()
     showEndTurnBnt()

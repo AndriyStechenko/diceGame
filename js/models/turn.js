@@ -5,4 +5,8 @@ export default class Turn {
         this.usedCombo = false
         this.dices = [] // Array[] of dices
     }
+
+    clearDices () {
+        this.dices = [] 
+    }
 }
