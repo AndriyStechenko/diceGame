@@ -2,6 +2,7 @@ import Turn from "/js/models/turn.js";
 import Player from "/js/models/player.js"
 import {readFromStorage, saveToStorage} from '/js/modules/storage.js'
 
+
 function initializeTurn() {
     let existingTurnObj = readFromStorage('turn')
     let currentTurn = new Turn
