@@ -1,5 +1,5 @@
-import ScoreTable from "/js/models/scoreTable.js"
-import {readFromStorage} from '/js/modules/storage.js'
+import ScoreTable from "../models/scoreTable.js"
+import {readFromStorage} from '../modules/storage.js'
 
 
 function initializeScoreTable() {

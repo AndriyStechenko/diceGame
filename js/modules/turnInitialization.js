@@ -1,6 +1,6 @@
-import Turn from "/js/models/turn.js";
-import Player from "/js/models/player.js"
-import {readFromStorage, saveToStorage} from '/js/modules/storage.js'
+import Turn from "../models/turn.js";
+import Player from "../models/player.js"
+import {readFromStorage, saveToStorage} from '../modules/storage.js'
 
 function initializeTurn() {
     let existingTurnObj = readFromStorage('turn')

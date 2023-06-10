@@ -25,27 +25,27 @@
 }
 
 .dice_pic_1{
-  background: url("/pic/dicePic/dice1.png") no-repeat;
+  background: url("../pic/dicePic/dice1.png") no-repeat;
 }
 
 .dice_pic_2{
-    background: url("/pic/dicePic/Dice2.png") no-repeat;
+    background: url("../pic/dicePic/Dice2.png") no-repeat;
 }
 
 .dice_pic_3{
-    background: url("/pic/dicePic/Dice3.png") no-repeat;
+    background: url("../pic/dicePic/Dice3.png") no-repeat;
 }
 
 .dice_pic_4{
-    background: url("/pic/dicePic/Dice4.png") no-repeat;
+    background: url("../pic/dicePic/Dice4.png") no-repeat;
 }
 
 .dice_pic_5{
-    background: url("/pic/dicePic/Dice5.png") no-repeat;
+    background: url("../pic/dicePic/Dice5.png") no-repeat;
 }
 
 .dice_pic_6{
-    background: url("/pic/dicePic/Dice6.png") no-repeat;
+    background: url("../pic/dicePic/Dice6.png") no-repeat;
 }
 
 /* The modal (background) */

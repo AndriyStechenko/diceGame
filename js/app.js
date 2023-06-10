@@ -1,11 +1,11 @@
 // import { askPlayersName } from "/js/lib/actions.js";
-import {createDicesWithDiceValues, drawAllDices} from '/js/modules/dicesDrawer.js'
-import {saveToStorage, deleteFromStorage } from "/js/modules/storage.js";
-import {initializeTurn} from '/js/modules/turnInitialization.js'
-import {submitPlayersNameFromModyle} from '/js/modules/playerNameGetterModul.js'
-import {createNewPlayerFromModal} from '/js/modules/playerNameGetterModul.js'
-import {scoreTableResultSum} from '/js/modules/scoreTableInitialization.js'
-import { initializeScoreTable } from "/js/modules/scoreTableInitialization.js";
+import {createDicesWithDiceValues, drawAllDices} from './modules/dicesDrawer.js'
+import {saveToStorage, deleteFromStorage } from "./modules/storage.js";
+import {initializeTurn} from './modules/turnInitialization.js'
+import {submitPlayersNameFromModyle} from './modules/playerNameGetterModul.js'
+import {createNewPlayerFromModal} from './modules/playerNameGetterModul.js'
+import {scoreTableResultSum} from './modules/scoreTableInitialization.js'
+import { initializeScoreTable } from "./modules/scoreTableInitialization.js";
 
 let turn = initializeTurn()
 
