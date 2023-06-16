@@ -1,5 +1,6 @@
 import Turn from "../models/turn.js";
 import Player from "../models/player.js"
+import {scoreTableResultSum} from '../modules/scoreTableInitialization.js'
 import {readFromStorage, saveToStorage} from '../modules/storage.js'
 
 function initializeTurn() {
@@ -28,4 +29,30 @@ function initializeTurn() {
     return currentTurn
 }
 
-export {initializeTurn}
+function setPlayersNameToTurn () {
+    let existingPlayerObj = readFromStorage('player')
+    let existingTurnObj = readFromStorage('currentTurn')
+    let currentTurn = new Turn
+    if (existingTurnObj) {
+        currentTurn.dices = existingTurnObj.dices
+        currentTurn.setPlayerName(existingPlayerObj.name)
+    } else {
+        alert('no info')
+    }
+    saveToStorage('currentTurn', currentTurn)
+}
+
+function setDiceScoreToTurn () {
+    let existingTurnObj = readFromStorage ('currentTurn')
+    let currentTurn = new Turn
+    if (existingTurnObj) {
+        currentTurn.dices = existingTurnObj.dices
+        currentTurn.player = existingTurnObj.player
+        currentTurn.dicesSum = scoreTableResultSum()
+    } else {
+        alert('no info')
+    }
+    saveToStorage('currentTurn', currentTurn)
+}
+
+export {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn}

@@ -1,11 +1,11 @@
 // import { askPlayersName } from "/js/lib/actions.js";
 import {createDicesWithDiceValues, drawAllDices} from './modules/dicesDrawer.js'
 import {saveToStorage, deleteFromStorage } from "./modules/storage.js";
-import {initializeTurn} from './modules/turnInitialization.js'
+import {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn} from './modules/turnInitialization.js'
 import {submitPlayersNameFromModyle} from './modules/playerNameGetterModul.js'
 import {createNewPlayerFromModal} from './modules/playerNameGetterModul.js'
 import {scoreTableResultSum} from './modules/scoreTableInitialization.js'
-import { initializeScoreTable } from "./modules/scoreTableInitialization.js";
+import { initializeScoreTable, makeScoretableVisible, createScoretable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from "./modules/scoreTableInitialization.js";
 
 let turn = initializeTurn()
 
@@ -36,12 +36,38 @@ function deleteDicesFromMemory () {
     deleteFromStorage('currentTurn')
 }
 
+function clearDiceContainer() {
+    const diceContainer = document.getElementById("dice-container");
+    while (diceContainer.firstChild) {
+      diceContainer.removeChild(diceContainer.firstChild);
+    }
+  }
+  
+  function drawEmptyDices() {
+    clearDiceContainer();
+  
+    const diceContainer = document.getElementById("dice-container");
+    for (let i = 0; i < 5; i++) {
+      const diceObject = document.createElement("img");
+      diceObject.src = "pic/dicePic/dice0.png";
+      diceObject.alt = "Dice " + (i + 1);
+      diceObject.className = "main_item";
+      diceContainer.appendChild(diceObject);
+    }
+  }
+  
+
+
 function startGameHandler () {
     // alert('Play with PC and rool dices')
     createNewPlayerFromModal()
     showRollDiceBtn()
     _makeDiceSectionVisible()
+    drawEmptyDices()
+    makeScoretableVisible()
     initializeScoreTable()
+    showEndTurnBnt()
+    createScoretable()
 }
 
 function rollDice () {
@@ -50,16 +76,26 @@ function rollDice () {
     dices.forEach(dice => { turn.dices.push(dice) });
     drawAllDices(dices)
     saveToStorage('currentTurn', turn)
+    setPlayersNameToTurn()
 }
 
 function afterRollDiceActions () {
     eraseDicesContainer()
     deleteDicesFromMemory()
     rollDice()
-    scoreTableResultSum()
-    showEndTurnBnt()
+    // scoreTableResultSum()
+}
+
+function endRollBtnActions () {
+    setDiceScoreToTurn()
+    addPlayersNameToScoreTable()
+    setPlayerTurnsInfoToScoreTable()
+    addPlayerScoreToScoreTable()
+    createResultTable()
+    readScoreTable()
 }
 
 startGameBtn.addEventListener('click', startGameHandler)
 submitBtn.addEventListener('click', submitPlayersNameFromModyle)
 rollDiceBtn.addEventListener('click', afterRollDiceActions)
+endRollBtn.addEventListener('click', endRollBtnActions)
