@@ -3,7 +3,6 @@ import Player from "../models/player.js"
 import {scoreTableResultSum} from '../modules/scoreTableInitialization.js'
 import {readFromStorage, saveToStorage} from '../modules/storage.js'
 
-
 function initializeTurn() {
     let existingTurnObj = readFromStorage('turn')
     let currentTurn = new Turn
