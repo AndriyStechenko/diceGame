@@ -1,6 +1,6 @@
 import { initializeScoreTable } from "./scoreTableInitialization.js";
-import { initializePlayer } from "/js/modules/playerInitialization.js";
-import {readFromStorage} from '/js/modules/storage.js'
+import { initializePlayer } from "../modules/playerInitialization.js";
+import {readFromStorage} from '../modules/storage.js'
 
 
 const playerNameModal = document.getElementById("playerNameModal");

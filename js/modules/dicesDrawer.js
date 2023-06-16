@@ -1,5 +1,5 @@
 // import dice from "/js/models/dice.js";
-import Dice from "/js/models/dice.js";
+import Dice from "../models/dice.js";
 
 function createDiceWithValue () {
    let dice = new Dice()

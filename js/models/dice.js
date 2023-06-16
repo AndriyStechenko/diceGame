@@ -25,5 +25,6 @@ export default class Dice {
     setId(value) {
         this.id = value
     }
+
 }
 

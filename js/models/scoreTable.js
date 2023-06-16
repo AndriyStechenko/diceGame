@@ -17,6 +17,12 @@ export default class ScoreTable {
 
         this.firstPlayerComboUsed = null
         this.secondPlayerComboUsed = null
+
+        this.firstPlayerTurnsHistory = null
+        this.secondPlayerTurnsHistory = null
     }
 
+    setPlayerName (name) {
+        this.firstPlayer = name
+    }
 }

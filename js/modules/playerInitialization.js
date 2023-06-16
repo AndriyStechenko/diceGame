@@ -1,5 +1,5 @@
-import Player from "/js/models/player.js"
-import {readFromStorage, saveToStorage} from '/js/modules/storage.js'
+import Player from "../models/player.js"
+import {readFromStorage, saveToStorage} from '../modules/storage.js'
 
 function initializePlayer (name) {
     let existingPlayerObj = readFromStorage('player')
