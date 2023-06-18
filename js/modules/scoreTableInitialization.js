@@ -120,7 +120,7 @@ function createResultTable() {
   
     const tbody = document.createElement('tbody');
   
-    for (let i = 1; i <= 6; i++) {
+    for (let columnNumber = 1; columnNumber <= 6; columnNumber++) {
       const row = document.createElement('tr');
   
       const rowHeader = document.createElement('th');

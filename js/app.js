@@ -40,12 +40,12 @@ function clearDiceContainer() {
     const diceContainer = document.getElementById("dice-container");
     const diceChildren = diceContainer.childNodes;
     
-    for (let i = diceChildren.length - 1; i >= 0; i--) {
-      diceContainer.removeChild(diceChildren[i]);
+    for (let diceNode = diceChildren.length - 1; diceNode >= 0; diceNode--) {
+      diceContainer.removeChild(diceChildren[diceNode]);
     }
 }
   
-function drawEmptyDices() {
+  function drawEmptyDices() {
     clearDiceContainer();
   
     const diceContainer = document.getElementById("dice-container");
@@ -56,7 +56,7 @@ function drawEmptyDices() {
       diceObject.className = "main_item";
       diceContainer.appendChild(diceObject);
     }
-}
+  }
   
 
 
