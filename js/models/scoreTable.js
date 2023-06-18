@@ -25,6 +25,6 @@ export default class ScoreTable {
 
     setPlayerName () {
         this.firstPlayer = readFromStorage('player')
-        console.log('players name from class:' ,this.firstPlayer)
+        console.log('players name from class:', this.firstPlayer)
     }
 }

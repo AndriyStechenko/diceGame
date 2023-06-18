@@ -32,9 +32,8 @@ function setComputerNameInTable () {
 }
 
 function scoreTableResultSum() {
-    let sum
+    let sum = 0
     let turnScore = readFromStorage('currentTurn')
-      sum = 0;
       for (const dice of turnScore.dices) {
         sum += dice.value;
       }
