@@ -1,5 +1,6 @@
 import Turn from "./turn.js"
 import Player from "./player.js"
+import { readFromStorage } from "../modules/storage.js"
 
 
 export default class ScoreTable {
@@ -22,7 +23,8 @@ export default class ScoreTable {
         this.secondPlayerTurnsHistory = null
     }
 
-    setPlayerName (name) {
-        this.firstPlayer = name
+    setPlayerName () {
+        this.firstPlayer = readFromStorage('player')
+        console.log('players name from class:' ,this.firstPlayer)
     }
 }

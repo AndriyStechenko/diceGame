@@ -38,12 +38,14 @@ function deleteDicesFromMemory () {
 
 function clearDiceContainer() {
     const diceContainer = document.getElementById("dice-container");
-    while (diceContainer.firstChild) {
-      diceContainer.removeChild(diceContainer.firstChild);
+    const diceChildren = diceContainer.childNodes;
+    
+    for (let i = diceChildren.length - 1; i >= 0; i--) {
+      diceContainer.removeChild(diceChildren[i]);
     }
-  }
+}
   
-  function drawEmptyDices() {
+function drawEmptyDices() {
     clearDiceContainer();
   
     const diceContainer = document.getElementById("dice-container");
@@ -54,7 +56,7 @@ function clearDiceContainer() {
       diceObject.className = "main_item";
       diceContainer.appendChild(diceObject);
     }
-  }
+}
   
 
 
