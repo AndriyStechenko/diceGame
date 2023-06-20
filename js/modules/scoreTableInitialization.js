@@ -18,7 +18,7 @@ function makeScoretableVisible () {
 
 function setPlayerNameInTable() {
     let playerNameCell = document.getElementById('player1Name')
-    let currentPlayerName = readFromStorage('player')
+    let currentPlayerName = readFromStorage('currentPlayer')
 
     if (currentPlayerName) {
         playerNameCell.textContent = currentPlayerName.name

@@ -14,7 +14,7 @@ export default class Turn {
     }
 
     setPlayerName () {
-        let playerName = readFromStorage('player')
+        let playerName = readFromStorage('currentPlayer')
         this.player = playerName.name
     }
 }

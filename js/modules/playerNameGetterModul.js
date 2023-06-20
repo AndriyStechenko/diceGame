@@ -14,7 +14,7 @@ function closeModal() {
 }
 
 function _playerIsKnown() {
-  return readFromStorage('player') ? true : false;
+  return readFromStorage('currentPlayer') ? true : false;
 }
 
 

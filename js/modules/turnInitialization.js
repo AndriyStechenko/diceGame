@@ -4,7 +4,7 @@ import {scoreTableResultSum} from '../modules/scoreTableInitialization.js'
 import {readFromStorage, saveToStorage} from '../modules/storage.js'
 
 function initializeTurn() {
-    let existingTurnObj = readFromStorage('turn')
+    let existingTurnObj = readFromStorage('currentTurn')
     let currentTurn = new Turn
 
     if (existingTurnObj) {
@@ -30,7 +30,7 @@ function initializeTurn() {
 }
 
 function setPlayersNameToTurn () {
-    let existingPlayerObj = readFromStorage('player')
+    let existingPlayerObj = readFromStorage('currentPlayer')
     let existingTurnObj = readFromStorage('currentTurn')
     let currentTurn = new Turn
     if (existingTurnObj) {
