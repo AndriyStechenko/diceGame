@@ -105,7 +105,7 @@ function createResultTable() {
     const headRow = document.createElement('tr');
   
     let existingScoreTable = readFromStorage('currentScoreTable');
-    let headers = ['#', existingScoreTable.firstPlayer, existingScoreTable.secondPlayer];
+    let headers = ['#', existingScoreTable.firstPlayer.name, existingScoreTable.secondPlayer.name];
   
     headers.forEach((headerText) => {
       const th = document.createElement('th');
@@ -124,7 +124,7 @@ function createResultTable() {
   
       const rowHeader = document.createElement('th');
       rowHeader.scope = 'row';
-      rowHeader.textContent = i;
+      rowHeader.textContent = columnNumber;
   
       const player1Cell = document.createElement('td');
       const player2Cell = document.createElement('td');
