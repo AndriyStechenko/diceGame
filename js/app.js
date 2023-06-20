@@ -38,10 +38,12 @@ function deleteDicesFromMemory () {
 
 function clearDiceContainer() {
     const diceContainer = document.getElementById("dice-container");
-    while (diceContainer.firstChild) {
-      diceContainer.removeChild(diceContainer.firstChild);
+    const diceChildren = diceContainer.childNodes;
+    
+    for (let diceNode = diceChildren.length - 1; diceNode >= 0; diceNode--) {
+      diceContainer.removeChild(diceChildren[diceNode]);
     }
-  }
+}
   
   function drawEmptyDices() {
     clearDiceContainer();

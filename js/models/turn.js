@@ -1,3 +1,5 @@
+import { readFromStorage } from "../modules/storage.js"
+
 export default class Turn {
     constructor () {
         this.number = null
@@ -11,7 +13,8 @@ export default class Turn {
         this.dices = [] 
     }
 
-    setPlayerName (name) {
-        this.player = name
+    setPlayerName () {
+        let playerName = readFromStorage('player')
+        this.player = playerName.name
     }
 }

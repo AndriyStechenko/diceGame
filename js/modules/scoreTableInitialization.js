@@ -22,8 +22,6 @@ function setPlayerNameInTable() {
 
     if (currentPlayerName) {
         playerNameCell.textContent = currentPlayerName.name
-    } else if (currentPlayerName === undefined ) {
-
     }
 }
 
@@ -33,10 +31,9 @@ function setComputerNameInTable () {
     playerNameCell.textContent = currentPlayerName.secondPlayer
 }
 
-let sum
 function scoreTableResultSum() {
+    let sum = 0
     let turnScore = readFromStorage('currentTurn')
-      sum = 0;
       for (const dice of turnScore.dices) {
         sum += dice.value;
       }
@@ -50,7 +47,6 @@ function scoreTableResultSum() {
 
 function createScoretable () {
     let currentScoreTable = new ScoreTable
-
     saveToStorage ('currentScoreTable', currentScoreTable)
     return currentScoreTable
 }
@@ -63,6 +59,7 @@ function addPlayersNameToScoreTable () {
         currentScoreTable.firstPlayer = currentTurn.player
     }
     saveToStorage('currentScoreTable', currentScoreTable )
+    
     return currentScoreTable
 }
 
@@ -74,9 +71,8 @@ function addPlayerScoreToScoreTable () {
         currentScoreTable.firstPlayer = currentTurn.player
         currentScoreTable.firstPlayerTotal = currentTurn.dicesSum
     }
-
     saveToStorage('currentScoreTable', currentScoreTable )
-
+    
     return currentScoreTable
 }
 
@@ -90,20 +86,15 @@ function setPlayerTurnsInfoToScoreTable () {
         currentScoreTable.firstPlayerTurnsHistory = currentTurn
         
     }
-
     saveToStorage('currentScoreTable', currentScoreTable )
 
     return currentScoreTable
 }
 
-
-
-
 function readScoreTable () {
     let currentScoreTable = readFromStorage('currentScoreTable')
-    console.log (currentScoreTable)
+    console.log(currentScoreTable)
 }
-
 
 function createResultTable() {
     const tableContainer = document.getElementById('resalt-table-section');
@@ -114,7 +105,7 @@ function createResultTable() {
     const headRow = document.createElement('tr');
   
     let existingScoreTable = readFromStorage('currentScoreTable');
-    let headers = ['#', existingScoreTable.firstPlayer, existingScoreTable.secondPlayer, 'Player#3'];
+    let headers = ['#', existingScoreTable.firstPlayer.name, existingScoreTable.secondPlayer.name];
   
     headers.forEach((headerText) => {
       const th = document.createElement('th');
@@ -128,33 +119,31 @@ function createResultTable() {
   
     const tbody = document.createElement('tbody');
   
-    for (let i = 1; i <= 6; i++) {
+    for (let columnNumber = 1; columnNumber <= 6; columnNumber++) {
       const row = document.createElement('tr');
   
       const rowHeader = document.createElement('th');
       rowHeader.scope = 'row';
-      rowHeader.textContent = i;
+      rowHeader.textContent = columnNumber;
   
       const player1Cell = document.createElement('td');
       const player2Cell = document.createElement('td');
-      const player3Cell = document.createElement('td');
-  
+
       row.appendChild(rowHeader);
       row.appendChild(player1Cell);
       row.appendChild(player2Cell);
-      row.appendChild(player3Cell);
   
       tbody.appendChild(row);
     }
   
     const remainingRowsData = [
-      { text: 'Combo', colspan: 3, content: '***' },
-      { text: 'Small strit', colspan: 3, content: '' },
-      { text: 'Big Strit', colspan: 3, content: '' },
-      { text: 'Full', colspan: 3, content: '' },
-      { text: 'Success', colspan: 3, content: '' },
-      { text: 'Pocker', colspan: 3, content: '' },
-      { text: 'Total Score', colspan: 3, content: '' },
+      { text: 'Combo', colspan: 2, content: '***' },
+      { text: 'Small strit', colspan: 2, content: '' },
+      { text: 'Big Strit', colspan: 2, content: '' },
+      { text: 'Full', colspan: 2, content: '' },
+      { text: 'Success', colspan: 2, content: '' },
+      { text: 'Pocker', colspan: 2, content: '' },
+      { text: 'Total Score', colspan: 2, content: '' },
     ];
   
     remainingRowsData.forEach((rowData) => {
