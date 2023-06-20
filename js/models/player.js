@@ -1,9 +1,9 @@
 export default class Player {
-    constructor () {
-        this.name = 'Serhiy'
-    }
+  constructor() {
+    this.name = 'Serhiy';
+  }
 
-    setName(name) {
-        this.name = name
-    }
+  setName(name) {
+    this.name = name;
+  }
 }

@@ -1,30 +1,30 @@
-import Turn from "./turn.js"
-import Player from "./player.js"
-import { readFromStorage } from "../modules/storage.js"
+import Turn from './turn.js';
+import Player from './player.js';
+import {readFromStorage} from '../modules/storage.js';
 
 
 export default class ScoreTable {
-    constructor() {
-        this.diceTotal = 1
+  constructor() {
+    this.diceTotal = 1;
 
-        this.firstPlayer = new Player
-        this.firstPlayerTurns = new Turn
-    
-        this.secondPlayer = "Computer"
-        this.secondPlayerTurns = new Turn 
-    
-        this.firstPlayerTotal = null
-        this.secondPlayerTotal = null
+    this.firstPlayer = new Player;
+    this.firstPlayerTurns = new Turn;
 
-        this.firstPlayerComboUsed = null
-        this.secondPlayerComboUsed = null
+    this.secondPlayer = 'Computer';
+    this.secondPlayerTurns = new Turn;
 
-        this.firstPlayerTurnsHistory = null
-        this.secondPlayerTurnsHistory = null
-    }
+    this.firstPlayerTotal = null;
+    this.secondPlayerTotal = null;
 
-    setPlayerName () {
-        this.firstPlayer = readFromStorage('currentPlayer')
-        console.log('players name from class:', this.firstPlayer)
-    }
+    this.firstPlayerComboUsed = null;
+    this.secondPlayerComboUsed = null;
+
+    this.firstPlayerTurnsHistory = null;
+    this.secondPlayerTurnsHistory = null;
+  }
+
+  setPlayerName() {
+    this.firstPlayer = readFromStorage('currentPlayer');
+    console.log('players name from class:', this.firstPlayer);
+  }
 }
