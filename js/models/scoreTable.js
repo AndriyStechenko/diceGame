@@ -23,8 +23,8 @@ export default class ScoreTable {
     this.secondPlayerTurnsHistory = null;
   }
 
-  setPlayerName() {
-    this.firstPlayer = readFromStorage('currentPlayer');
-    console.log('players name from class:', this.firstPlayer);
+  setFirstPlayerName() {
+    const player = readFromStorage('currentPlayer');
+    this.firstPlayer = player.name;
   }
 }

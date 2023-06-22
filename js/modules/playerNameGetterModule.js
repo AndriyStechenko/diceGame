@@ -13,20 +13,20 @@ function closeModal() {
   playerNameModal.style.display = 'none';
 }
 
-function _playerIsKnown() {
+function playerIsKnown() {
   return readFromStorage('currentPlayer') ? true : false;
 }
 
 
-function createNewPlayerFromModal() {
-  if (_playerIsKnown()) {
+function showNewPlayerFormModal() {
+  if (playerIsKnown()) {
     return;
   } else {
     playerNameModal.style.display = 'block';
   }
 }
 
-function submitPlayersNameFromModyle() {
+function submitPlayersNameFormModule() {
   let playerName;
   if (playerNameInput.value == '') {
     playerName = defaultPlayerName;
@@ -42,4 +42,4 @@ function submitPlayersNameFromModyle() {
 
 closeBtn.addEventListener('click', closeModal);
 
-export {submitPlayersNameFromModyle, createNewPlayerFromModal};
+export {submitPlayersNameFormModule, showNewPlayerFormModal, playerIsKnown};

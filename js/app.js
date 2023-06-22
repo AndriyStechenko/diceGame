@@ -2,10 +2,10 @@
 import {createDicesWithDiceValues, drawAllDices} from './modules/dicesDrawer.js';
 import {saveToStorage, deleteFromStorage} from './modules/storage.js';
 import {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn} from './modules/turnInitialization.js';
-import {submitPlayersNameFromModyle} from './modules/playerNameGetterModule.js';
-import {createNewPlayerFromModal} from './modules/playerNameGetterModule.js';
+import {submitPlayersNameFormModule, playerIsKnown} from './modules/playerNameGetterModule.js';
+import {showNewPlayerFormModal} from './modules/playerNameGetterModule.js';
 // import {scoreTableResultSum} from './modules/scoreTableInitialization.js';
-import {initializeScoreTable, makeScoretableVisible, createScoretable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
+import {initializeScoreTable, showScoreTable, createScoreTable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
 
 const turn = initializeTurn();
 
@@ -58,17 +58,16 @@ function drawEmptyDices() {
   }
 }
 
-
 function startGameHandler() {
   // alert('Play with PC and rool dices')
-  createNewPlayerFromModal();
+  showNewPlayerFormModal();
   showRollDiceBtn();
   _makeDiceSectionVisible();
   drawEmptyDices();
-  makeScoretableVisible();
-  initializeScoreTable();
   showEndTurnBnt();
-  createScoretable();
+  if (playerIsKnown()) {
+    prepareScoreTable();
+  }
 }
 
 function rollDice() {
@@ -98,7 +97,18 @@ function endRollBtnActions() {
   readScoreTable();
 }
 
+function afterSaveNewPlayerActions() {
+  submitPlayersNameFormModule();
+  prepareScoreTable();
+}
+
+function prepareScoreTable() {
+  const currentScoreTable = initializeScoreTable();
+  showScoreTable();
+  createScoreTable(currentScoreTable);
+}
+
 startGameBtn.addEventListener('click', startGameHandler);
-submitBtn.addEventListener('click', submitPlayersNameFromModyle);
+submitBtn.addEventListener('click', afterSaveNewPlayerActions);
 rollDiceBtn.addEventListener('click', afterRollDiceActions);
 endRollBtn.addEventListener('click', endRollBtnActions);

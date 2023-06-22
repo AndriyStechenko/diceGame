@@ -4,31 +4,27 @@ import {readFromStorage, saveToStorage} from '../modules/storage.js';
 
 function initializeScoreTable() {
   const currentScoreTable = new ScoreTable;
+  currentScoreTable.setFirstPlayerName();
 
-  setPlayerNameInTable();
-  setComputerNameInTable();
+  showFirstPlayerInTable(currentScoreTable);
+  showSecondPlayerInTable(currentScoreTable);
 
   return currentScoreTable;
 }
 
-function makeScoretableVisible() {
+function showScoreTable() {
   const scoreTableContainer = document.getElementById('resalt-table-section');
   scoreTableContainer.classList.remove('invisible');
 }
 
-function setPlayerNameInTable() {
+function showFirstPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player1Name');
-  const currentPlayerName = readFromStorage('currentPlayer');
-
-  if (currentPlayerName) {
-    playerNameCell.textContent = currentPlayerName.name;
-  }
+  playerNameCell.textContent = currentScoreTable.firstPlayer.name;
 }
 
-function setComputerNameInTable() {
+function showSecondPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player2Name');
-  const currentPlayerName = new ScoreTable;
-  playerNameCell.textContent = currentPlayerName.secondPlayer;
+  playerNameCell.textContent = currentScoreTable.secondPlayer.name;
 }
 
 function scoreTableResultSum() {
@@ -45,8 +41,7 @@ function scoreTableResultSum() {
   return sum;
 }
 
-function createScoretable() {
-  const currentScoreTable = new ScoreTable;
+function createScoreTable(currentScoreTable) {
   saveToStorage('currentScoreTable', currentScoreTable);
   return currentScoreTable;
 }
@@ -169,4 +164,4 @@ function createResultTable() {
   scoreTableResultSum();
 }
 
-export {initializeScoreTable, scoreTableResultSum, makeScoretableVisible, createScoretable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
+export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
