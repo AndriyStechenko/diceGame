@@ -5,7 +5,7 @@ import {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn} from './module
 import {submitPlayersNameFormModule, playerIsKnown} from './modules/playerNameGetterModule.js';
 import {showNewPlayerFormModal} from './modules/playerNameGetterModule.js';
 // import {scoreTableResultSum} from './modules/scoreTableInitialization.js';
-import {initializeScoreTable, showScoreTable, createScoreTable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
+import {initializeScoreTable, showScoreTable, createScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
 
 const turn = initializeTurn();
 
@@ -90,7 +90,6 @@ function afterRollDiceActions() {
 
 function endRollBtnActions() {
   setDiceScoreToTurn();
-  addPlayersNameToScoreTable();
   setPlayerTurnsInfoToScoreTable();
   addPlayerScoreToScoreTable();
   createResultTable();

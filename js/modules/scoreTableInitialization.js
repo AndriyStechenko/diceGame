@@ -1,7 +1,6 @@
 import ScoreTable from '../models/scoreTable.js';
 import {readFromStorage, saveToStorage} from '../modules/storage.js';
 
-
 function initializeScoreTable() {
   const currentScoreTable = new ScoreTable;
   currentScoreTable.setFirstPlayerName();
@@ -46,22 +45,8 @@ function createScoreTable(currentScoreTable) {
   return currentScoreTable;
 }
 
-function addPlayersNameToScoreTable() {
+function addPlayerScoreToScoreTable(currentScoreTable) {
   const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
-  if (existingScoreTable) {
-    currentScoreTable.firstPlayer = currentTurn.player;
-  }
-  saveToStorage('currentScoreTable', currentScoreTable );
-
-  return currentScoreTable;
-}
-
-function addPlayerScoreToScoreTable() {
-  const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
   if (existingScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
@@ -71,10 +56,8 @@ function addPlayerScoreToScoreTable() {
   return currentScoreTable;
 }
 
-function setPlayerTurnsInfoToScoreTable() {
+function setPlayerTurnsInfoToScoreTable(currentScoreTable) {
   const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
   if (existingScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
@@ -164,4 +147,4 @@ function createResultTable() {
   scoreTableResultSum();
 }
 
-export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
+export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
