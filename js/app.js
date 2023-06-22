@@ -2,8 +2,8 @@
 import {createDicesWithDiceValues, drawAllDices} from './modules/dicesDrawer.js';
 import {saveToStorage, deleteFromStorage} from './modules/storage.js';
 import {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn} from './modules/turnInitialization.js';
-import {submitPlayersNameFromModyle} from './modules/playerNameGetterModul.js';
-import {createNewPlayerFromModal} from './modules/playerNameGetterModul.js';
+import {submitPlayersNameFromModyle} from './modules/playerNameGetterModule.js';
+import {createNewPlayerFromModal} from './modules/playerNameGetterModule.js';
 // import {scoreTableResultSum} from './modules/scoreTableInitialization.js';
 import {initializeScoreTable, makeScoretableVisible, createScoretable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
 
