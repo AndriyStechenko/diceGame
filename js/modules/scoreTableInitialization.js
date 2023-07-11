@@ -4,7 +4,8 @@ import {readFromStorage, saveToStorage} from '../modules/storage.js';
 function initializeScoreTable() {
   const currentScoreTable = new ScoreTable;
   currentScoreTable.setFirstPlayerName();
-
+  currentScoreTable.setFirstPlayerTurns();
+  currentScoreTable.setFirstPlayerTotalScore();
   showFirstPlayerInTable(currentScoreTable);
   showSecondPlayerInTable(currentScoreTable);
 
@@ -18,12 +19,14 @@ function showScoreTable() {
 
 function showFirstPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player1Name');
-  playerNameCell.textContent = currentScoreTable.firstPlayer.name;
+  // const playerNameCell = headerRow.querySelector('th:nth-child(2)');
+  playerNameCell.textContent = currentScoreTable.firstPlayer;
 }
 
 function showSecondPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player2Name');
-  playerNameCell.textContent = currentScoreTable.secondPlayer.name;
+  // const playerNameCell = headerRow.querySelector('th:nth-child(3)');
+  playerNameCell.textContent = currentScoreTable.secondPlayer;
 }
 
 function scoreTableResultSum() {
@@ -32,11 +35,6 @@ function scoreTableResultSum() {
   for (const dice of turnScore.dices) {
     sum += dice.value;
   }
-
-  const firstTurnRow = document.querySelector('#resalt-table-section tbody tr:nth-child(1)');
-  const firstTdNode = firstTurnRow.querySelector('td');
-  firstTdNode.textContent = sum;
-
   return sum;
 }
 
@@ -47,7 +45,7 @@ function createScoreTable(currentScoreTable) {
 
 function addPlayerScoreToScoreTable(currentScoreTable) {
   const currentTurn = readFromStorage('currentTurn');
-  if (existingScoreTable) {
+  if (currentScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
   }
@@ -56,13 +54,16 @@ function addPlayerScoreToScoreTable(currentScoreTable) {
   return currentScoreTable;
 }
 
-function setPlayerTurnsInfoToScoreTable(currentScoreTable) {
+function setPlayerTurnsInfoToScoreTable() {
   const currentTurn = readFromStorage('currentTurn');
-  if (existingScoreTable) {
+  const currentScoreTable = readFromStorage('currentScoreTable');
+
+  if (currentScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
-    currentScoreTable.firstPlayerTurnsHistory = currentTurn;
+    currentScoreTable.firstPlayerTurns.push(currentTurn);
   }
+
   saveToStorage('currentScoreTable', currentScoreTable );
 
   return currentScoreTable;
@@ -81,8 +82,10 @@ function createResultTable() {
   const thead = document.createElement('thead');
   const headRow = document.createElement('tr');
 
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const headers = ['#', existingScoreTable.firstPlayer.name, existingScoreTable.secondPlayer.name];
+  // const existingScoreTable = readFromStorage('currentScoreTable');
+  const currentScoreTable = readFromStorage('currentScoreTable');
+
+  const headers = ['#', currentScoreTable.firstPlayer, currentScoreTable.secondPlayer];
 
   headers.forEach((headerText) => {
     const th = document.createElement('th');
@@ -96,15 +99,21 @@ function createResultTable() {
 
   const tbody = document.createElement('tbody');
 
-  for (let columnNumber = 1; columnNumber <= 6; columnNumber++) {
+  for (let turnRowNumer = 1; turnRowNumer <= 6; turnRowNumer++) {
     const row = document.createElement('tr');
 
     const rowHeader = document.createElement('th');
     rowHeader.scope = 'row';
-    rowHeader.textContent = columnNumber;
+    rowHeader.textContent = turnRowNumer;
 
     const player1Cell = document.createElement('td');
     const player2Cell = document.createElement('td');
+
+    const firstPlayerTurn = currentScoreTable.firstPlayerTurns[turnRowNumer - 1];
+    player1Cell.textContent = firstPlayerTurn ? firstPlayerTurn.dicesSum : '-';
+
+    const secondPlayerTurn = currentScoreTable.secondPlayerTurns[turnRowNumer - 1];
+    player2Cell.textContent = secondPlayerTurn ? secondPlayerTurns.dicesSum : '-';
 
     row.appendChild(rowHeader);
     row.appendChild(player1Cell);
@@ -112,6 +121,7 @@ function createResultTable() {
 
     tbody.appendChild(row);
   }
+
 
   const remainingRowsData = [
     {text: 'Combo', colspan: 2, content: '***'},
@@ -144,7 +154,6 @@ function createResultTable() {
 
   tableContainer.innerHTML = '';
   tableContainer.appendChild(table);
-  scoreTableResultSum();
 }
 
 export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};

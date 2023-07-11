@@ -4,8 +4,8 @@ import {saveToStorage, deleteFromStorage} from './modules/storage.js';
 import {initializeTurn, setPlayersNameToTurn, setDiceScoreToTurn} from './modules/turnInitialization.js';
 import {submitPlayersNameFormModule, playerIsKnown} from './modules/playerNameGetterModule.js';
 import {showNewPlayerFormModal} from './modules/playerNameGetterModule.js';
-// import {scoreTableResultSum} from './modules/scoreTableInitialization.js';
-import {initializeScoreTable, showScoreTable, createScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
+import {initializeScoreTable, showScoreTable, createScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './modules/scoreTableInitialization.js';
+import {readFromStorage} from './modules/storage.js';
 
 const turn = initializeTurn();
 
@@ -62,9 +62,9 @@ function startGameHandler() {
   // alert('Play with PC and rool dices')
   showNewPlayerFormModal();
   showRollDiceBtn();
+  showEndTurnBnt();
   _makeDiceSectionVisible();
   drawEmptyDices();
-  showEndTurnBnt();
   if (playerIsKnown()) {
     prepareScoreTable();
   }
@@ -85,15 +85,20 @@ function afterRollDiceActions() {
   eraseDicesContainer();
   deleteDicesFromMemory();
   rollDice();
-  // scoreTableResultSum()
 }
 
 function endRollBtnActions() {
   setDiceScoreToTurn();
   setPlayerTurnsInfoToScoreTable();
-  addPlayerScoreToScoreTable();
+  // addPlayerScoreToScoreTable();
   createResultTable();
-  readScoreTable();
+  // readScoreTable();
+  const currentScoreTable = readFromStorage('currentScoreTable');
+  const a = currentScoreTable.firstPlayerTurns.length < 6;
+  if (!a) {
+    showRollDiceBtn();
+    showEndTurnBnt();
+  }
 }
 
 function afterSaveNewPlayerActions() {
@@ -106,6 +111,16 @@ function prepareScoreTable() {
   showScoreTable();
   createScoreTable(currentScoreTable);
 }
+
+// function canDoOneMoreTurn() {
+//   const currentScoreTable = readFromStorage('currentScoreTable');
+//   if (!currentScoreTable) {
+//     return true;
+//   }
+//   const turnsAmount = currentScoreTable.firstPlayerTurns.lenght < 6;
+//   return turnsAmount;
+// };
+
 
 startGameBtn.addEventListener('click', startGameHandler);
 submitBtn.addEventListener('click', afterSaveNewPlayerActions);
