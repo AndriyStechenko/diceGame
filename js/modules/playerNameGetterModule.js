@@ -1,4 +1,3 @@
-import {initializeScoreTable} from './scoreTableInitialization.js';
 import {initializePlayer} from './playerInitialization.js';
 import {readFromStorage} from './storage.js';
 
