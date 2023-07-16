@@ -19,14 +19,24 @@ function showScoreTable() {
 
 function showFirstPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player1Name');
-  // const playerNameCell = headerRow.querySelector('th:nth-child(2)');
-  playerNameCell.textContent = currentScoreTable.firstPlayer;
+  if (playerNameCell) {
+    playerNameCell.textContent = currentScoreTable.firstPlayer;
+  } else {
+    const resaltTableSection = document.getElementById('resalt-table-section');
+    const playerNameCell = resaltTableSection.querySelector('th:nth-child(2)');
+    playerNameCell.textContent = currentScoreTable.firstPlayer;
+  }
 }
 
 function showSecondPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player2Name');
-  // const playerNameCell = headerRow.querySelector('th:nth-child(3)');
-  playerNameCell.textContent = currentScoreTable.secondPlayer;
+  if (playerNameCell) {
+    playerNameCell.textContent = currentScoreTable.secondPlayer;
+  } else {
+    const resaltTableSection = document.getElementById('resalt-table-section');
+    const playerNameCell = resaltTableSection.querySelector('th:nth-child(3)');
+    playerNameCell.textContent = currentScoreTable.secondPlayer;
+  }
 }
 
 function scoreTableResultSum() {
