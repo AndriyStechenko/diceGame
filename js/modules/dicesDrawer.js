@@ -1,5 +1,6 @@
 import Dice from '../models/dice.js';
 import {readFromStorage, saveToStorage} from './storage.js';
+import {showRollDiceBtn, showEndTurnBnt} from './callbacks.js';
 
 function createDiceWithValue() {
   const dice = new Dice();
@@ -71,6 +72,11 @@ function drawEmptyDices() {
 function makeDiceSectionVisible() {
   const diceSectionElement = document.getElementById('dice-section');
   diceSectionElement.classList.toggle('invisible');
+  const currentScoreTable = readFromStorage('currentScoreTable');
+  if (currentScoreTable === null) {
+    showRollDiceBtn();
+    showEndTurnBnt();
+  }
 }
 
 function drawDicesFromLastTurn() {
