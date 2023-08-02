@@ -76,8 +76,10 @@ function makeDiceSectionVisible() {
 function drawDicesFromLastTurn() {
   clearDiceContainer();
   const currentTurn = readFromStorage('currentTurn');
-  const currentDices = currentTurn.dices;
-  drawAllDices(currentDices);
+  if (currentTurn) {
+    const currentDices = currentTurn.dices;
+    drawAllDices(currentDices);
+  }
 }
 
 function holdDice(event) {
@@ -123,13 +125,15 @@ function diceOnHoldSwitcher(diceNumber) {
 
 function addBacklinghtFromCurrentTurn() {
   const currentTurn = readFromStorage('currentTurn');
-  for (const dice of currentTurn.dices) {
-    const diceId = dice.id;
-    const diceOnHoldValue = dice.onHold;
-    if (diceOnHoldValue === true) {
-      const diceIdInHtml = `dice_${diceId}`;
-      const diceElement = document.getElementById(diceIdInHtml);
-      diceElement.classList.add('red-light');
+  if (currentTurn) {
+    for (const dice of currentTurn.dices) {
+      const diceId = dice.id;
+      const diceOnHoldValue = dice.onHold;
+      if (diceOnHoldValue === true) {
+        const diceIdInHtml = `dice_${diceId}`;
+        const diceElement = document.getElementById(diceIdInHtml);
+        diceElement.classList.add('red-light');
+      }
     }
   }
 }

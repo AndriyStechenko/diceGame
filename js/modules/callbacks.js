@@ -20,10 +20,20 @@ function showRollDiceBtn() {
 function startGameBtnActions() {
   showNewPlayerFormModal();
   const currentScoreTable = readFromStorage('currentScoreTable');
-  if (currentScoreTable.firstPlayerTurns.length < 6) {
+  console.log(currentScoreTable);
+  if (currentScoreTable !== null && currentScoreTable.firstPlayerTurns.length < 6) {
     showRollDiceBtn();
     showEndTurnBnt();
+  } else {
+    console.log('have no turns');
   }
+
+  // if (currentScoreTable.firstPlayerTurns.length < 6) {
+  //   showRollDiceBtn();
+  //   showEndTurnBnt();
+  // } else {
+  //   console.log('have no turns');
+  // }
   makeDiceSectionVisible();
   drawEmptyDices();
   if (playerIsKnown()) {
