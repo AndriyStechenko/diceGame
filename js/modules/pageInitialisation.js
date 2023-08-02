@@ -1,6 +1,6 @@
 import {readFromStorage} from './storage.js';
 import {showRollDiceBtn, showEndTurnBnt, makeDiceSectionVisible, createResultTable, showScoreTable} from './callbacks.js';
-import {drawEmptyDices, drawDicesFromLastTurn} from './dicesDrawer.js';
+import {drawEmptyDices, drawDicesFromLastTurn, addBacklinghtFromCurrentTurn} from './dicesDrawer.js';
 
 function initializePage() {
   const currentScoreTable = readFromStorage('currentScoreTable');
@@ -12,6 +12,7 @@ function initializePage() {
     drawDicesFromLastTurn();
     showScoreTable();
     createResultTable();
+    addBacklinghtFromCurrentTurn();
   }
 }
 
