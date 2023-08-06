@@ -5,6 +5,7 @@ import {showNewPlayerFormModal} from './playerNameGetterModule.js';
 import {initializeScoreTable, showScoreTable, createScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './scoreTableInitialization.js';
 import {rollDice} from './actions.js';
 import {eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible} from './dicesDrawer.js';
+import {showModal} from './comboCaruselModule.js';
 
 const rollDiceBtn = document.getElementById('roll-dice-btn');
 const endRollBtn = document.getElementById('end-turn-btn');
@@ -20,20 +21,13 @@ function showRollDiceBtn() {
 function startGameBtnActions() {
   showNewPlayerFormModal();
   const currentScoreTable = readFromStorage('currentScoreTable');
-  console.log(currentScoreTable);
-  if (currentScoreTable !== null && currentScoreTable.firstPlayerTurns.length < 6) {
+  if (currentScoreTable && currentScoreTable.firstPlayerTurns.length < 6) {
     showRollDiceBtn();
     showEndTurnBnt();
-  } else {
-    console.log('have no turns');
+  } else if (currentScoreTable === null) {
+    showRollDiceBtn();
+    showEndTurnBnt();
   }
-
-  // if (currentScoreTable.firstPlayerTurns.length < 6) {
-  //   showRollDiceBtn();
-  //   showEndTurnBnt();
-  // } else {
-  //   console.log('have no turns');
-  // }
   makeDiceSectionVisible();
   drawEmptyDices();
   if (playerIsKnown()) {
@@ -45,6 +39,7 @@ function afterRollDiceActions() {
   eraseDicesContainer();
   deleteFromStorage('currentTurn');
   rollDice();
+  showModal();
 }
 
 function endRollBtnActions() {

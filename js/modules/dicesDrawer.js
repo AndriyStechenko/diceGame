@@ -1,6 +1,5 @@
 import Dice from '../models/dice.js';
 import {readFromStorage, saveToStorage} from './storage.js';
-import {showRollDiceBtn, showEndTurnBnt} from './callbacks.js';
 
 function createDiceWithValue() {
   const dice = new Dice();
@@ -35,7 +34,7 @@ function drawAllDices(dices) {
     diceElement.addEventListener('click', holdDice);
   });
   diceElements.forEach((diceElement) => {
-    diceElement.addEventListener('click', readLightToggle);
+    diceElement.addEventListener('click', onHoldLightTooggle);
   });
   diceElements.forEach((diceElement) => {
     diceElement.addEventListener('click', removeOnHoldFromDice);
@@ -72,11 +71,6 @@ function drawEmptyDices() {
 function makeDiceSectionVisible() {
   const diceSectionElement = document.getElementById('dice-section');
   diceSectionElement.classList.toggle('invisible');
-  const currentScoreTable = readFromStorage('currentScoreTable');
-  if (currentScoreTable === null) {
-    showRollDiceBtn();
-    showEndTurnBnt();
-  }
 }
 
 function drawDicesFromLastTurn() {
@@ -91,7 +85,6 @@ function drawDicesFromLastTurn() {
 function holdDice(event) {
   // read dice from memory by number
   const currentTurn = readFromStorage('currentTurn');
-  console.log('currentTurn:', currentTurn);
   let diceNumber = event.target.id;
   diceNumber = diceNumber[diceNumber.length-1];
   const diceData = currentTurn.dices.find((dice) => dice.id.toString() === diceNumber);
@@ -105,17 +98,18 @@ function holdDice(event) {
   saveToStorage('currentTurn', currentTurn);
 }
 
-function readLightToggle(event) {
+function onHoldLightTooggle(event) {
   const diceNumberId = event.target.id;
+  console.log(diceNumberId);
   const diceElement = document.getElementById(diceNumberId);
-  diceElement.classList.toggle('red-light');
+  diceElement.classList.toggle('dice-on-hold-back-light');
 };
 
 function removeOnHoldFromDice(event) {
   const diceClass = event.target.classList[event.target.classList.length-1];
   let diceNumber = event.target.id;
   diceNumber = diceNumber[diceNumber.length-1];
-  if (diceClass !== 'red-light') {
+  if (diceClass !== 'dice-on-hold-back-light') {
     diceOnHoldSwitcher(diceNumber);
   }
 }
@@ -138,10 +132,10 @@ function addBacklinghtFromCurrentTurn() {
       if (diceOnHoldValue === true) {
         const diceIdInHtml = `dice_${diceId}`;
         const diceElement = document.getElementById(diceIdInHtml);
-        diceElement.classList.add('red-light');
+        diceElement.classList.add('dice-on-hold-back-light');
       }
     }
   }
 }
 
-export {createDicesWithDiceValues, drawAllDices, eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible, drawDicesFromLastTurn, holdDice, addBacklinghtFromCurrentTurn};
+export {createDicesWithDiceValues, drawAllDices, eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible, drawDicesFromLastTurn, holdDice, addBacklinghtFromCurrentTurn, onHoldLightTooggle};

@@ -12,4 +12,5 @@ submitBtn.addEventListener('click', afterSaveNewPlayerActions);
 rollDiceBtn.addEventListener('click', afterRollDiceActions);
 endRollBtn.addEventListener('click', endRollBtnActions);
 
+
 initializePage();
