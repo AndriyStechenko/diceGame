@@ -1,6 +1,6 @@
 export default class Combo {
   constructor() {
-    this.name = null;
+    this.playerName = null;
     this.scoreForEachDice = null;
     this.maxAmountOfPointsPerCombo = null;
     // *** combinations

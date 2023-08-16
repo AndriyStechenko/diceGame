@@ -5,7 +5,7 @@ import {showNewPlayerFormModal} from './playerNameGetterModule.js';
 import {initializeScoreTable, showScoreTable, createScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable} from './scoreTableInitialization.js';
 import {rollDice} from './actions.js';
 import {eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible} from './dicesDrawer.js';
-import {showModal} from './comboCaruselModule.js';
+import {showModal, checkedWhatComboAlreadyUsed, makeUsedBtnInCauruselClickeble} from './comboCaruselModule.js';
 
 const rollDiceBtn = document.getElementById('roll-dice-btn');
 const endRollBtn = document.getElementById('end-turn-btn');
@@ -33,6 +33,7 @@ function startGameBtnActions() {
   if (playerIsKnown()) {
     prepareScoreTable();
   }
+  makeUsedBtnInCauruselClickeble();
 }
 
 function afterRollDiceActions() {
@@ -40,6 +41,7 @@ function afterRollDiceActions() {
   deleteFromStorage('currentTurn');
   rollDice();
   showModal();
+  checkedWhatComboAlreadyUsed();
 }
 
 function endRollBtnActions() {

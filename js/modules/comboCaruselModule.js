@@ -38,15 +38,29 @@ function lightDices(carouselElement) {
     'fiveCombination': '.dice_pic_5',
     'sixCombination': '.dice_pic_6',
     'smallStritCombination': [1, 2, 3, 4, 5],
+    'bigStritCombination': [2, 3, 4, 5, 6],
+    'fullCombination': [6, 6, 6, 5, 5],
+    'successCombination': [6, 6, 6, 6, 6],
+    'pokerCombination': null,
   };
+  const diceElements = document.querySelectorAll('.main_item.dice');
+  const diceValues = [...diceElements].map((diceElement) => diceElement.getAttribute('data-value'));
 
-  if (carouselElementId === 'smallStritCombination') {
-    console.log('Finally smallStritCombination');
-  } else {
-    if (carouselElementId in combinationToDiceClassMap) {
-      const diceElements = document.querySelectorAll(combinationToDiceClassMap[carouselElementId]);
-      _diceLighter(diceElements);
+  if (carouselElementId === 'pokerCombination') {
+    const uniqValues = diceValues.filter((value, index, self) => self.indexOf(value) === index);
+    console.log(uniqValues);
+    if (uniqValues.length === 1) {
+      diceElements.forEach((diceElement)=> diceElement.classList.add('dice-on-hold-back-light'));
     }
+  }
+
+  if ( ['smallStritCombination', 'bigStritCombination', 'fullCombination', 'successCombination'].includes(carouselElementId)) {
+    if (diceValues.sort().toString() == combinationToDiceClassMap.smallStritCombination.toString()) {
+      diceElements.forEach((diceElement)=> diceElement.classList.add('dice-on-hold-back-light'));
+    }
+  } else {
+    const diceElements = document.querySelectorAll(combinationToDiceClassMap[carouselElementId]);
+    _diceLighter(diceElements);
   }
 }
 
@@ -66,9 +80,28 @@ function lightOffDices(carouselElement) {
     'fiveCombination': '.dice_pic_5',
     'sixCombination': '.dice_pic_6',
     'smallStritCombination': [1, 2, 3, 4, 5],
+    'bigStritCombination': [2, 3, 4, 5, 6],
+    'fullCombination': [6, 6, 6, 5, 5],
+    'successCombination': [6, 6, 6, 6, 6],
+    'pokerCombination': null,
   };
 
-  if (carouselElementId in combinationToDiceClassMap && !optionClicked) {
+  const diceElements = document.querySelectorAll('.main_item.dice');
+  const diceValues = [...diceElements].map((diceElement) => diceElement.getAttribute('data-value'));
+
+  if (carouselElementId === 'pokerCombination') {
+    const uniqValues = diceValues.filter((value, index, self) => self.indexOf(value) === index);
+    console.log(uniqValues);
+    if (uniqValues.length === 1) {
+      diceElements.forEach((diceElement)=> diceElement.classList.remove('dice-on-hold-back-light'));
+    }
+  }
+
+  if ( ['smallStritCombination', 'bigStritCombination', 'fullCombination', 'successCombination'].includes(carouselElementId)) {
+    if (diceValues.sort().toString() == combinationToDiceClassMap.smallStritCombination.toString()) {
+      diceElements.forEach((diceElement)=> diceElement.classList.remove('dice-on-hold-back-light'));
+    }
+  } else if (carouselElementId in combinationToDiceClassMap && !optionClicked) {
     const diceElements = document.querySelectorAll(combinationToDiceClassMap[carouselElementId]);
     _diceLighterOff(diceElements);
   }
@@ -83,9 +116,9 @@ function _diceLighterOff(diceElements) {
 
 function makeDiceOnHoldInTurn() {
   const elementId = event.target.id;
-  console.log(elementId);
+  const carouselElementId = elementId;
   const currentTurn = readFromStorage('currentTurn');
-  const combinationMap = {
+  const combinationToDiceClassMap = {
     'oneCombination': 1,
     'twoCombination': 2,
     'threeCombination': 3,
@@ -93,32 +126,73 @@ function makeDiceOnHoldInTurn() {
     'fiveCombination': 5,
     'sixCombination': 6,
     'smallStritCombination': [1, 2, 3, 4, 5],
+    'bigStritCombination': [2, 3, 4, 5, 6],
+    'fullCombination': [6, 6, 6, 5, 5],
+    'successCombination': [6, 6, 6, 6, 6],
+    'pokerCombination': null,
   };
+  const diceValueToHold = combinationToDiceClassMap[elementId];
+  const diceElements = document.querySelectorAll('.main_item.dice');
+  const diceValues = [...diceElements].map((diceElement) => diceElement.getAttribute('data-value'));
 
-  const diceValueToHold = combinationMap[elementId];
-  console.log(diceValueToHold);
 
-  for (const dice of currentTurn.dices) {
-    if (dice.value === diceValueToHold) {
-      dice.onHold = true;
-      currentTurn.usedCombo = elementId;
-      currentTurn.dicesSum += dice.value;
+  if (elementId === 'pokerCombination') {
+    const uniqValues = diceValues.filter((value, index, self) => self.indexOf(value) === index);
+    if (uniqValues.length === 1) {
+      for (const dice of currentTurn.dices) {
+        dice.onHold = true;
+        currentTurn.usedCombo = elementId;
+        currentTurn.dicesSum += dice.value;
+      }
+    }
+  }
+
+  if ( ['smallStritCombination', 'bigStritCombination', 'fullCombination', 'successCombination'].includes(carouselElementId)) {
+    if (diceValues.sort().toString() == combinationToDiceClassMap.smallStritCombination.toString()) {
+      for (const dice of currentTurn.dices) {
+        dice.onHold = true;
+        currentTurn.usedCombo = elementId;
+        currentTurn.dicesSum += dice.value;
+      }
+    }
+  } else {
+    for (const dice of currentTurn.dices) {
+      if (dice.value === diceValueToHold) {
+        dice.onHold = true;
+        currentTurn.usedCombo = elementId;
+        currentTurn.dicesSum += dice.value;
+      }
     }
   }
 
   saveToStorage('currentTurn', currentTurn);
 }
 
-// function _checkSmallStritCombination(obj) {
-//   const diceValues = obj.dices.map((dice) => dice.value);
-//   const smallStritValues = [1, 2, 3, 4, 5];
-//   const isSmallStritCombination = smallStritValues.every((value) => diceValues.includes(value));
+function checkedWhatComboAlreadyUsed() {
+  const currentScoreTable = readFromStorage('currentScoreTable');
+  const usedCombos = currentScoreTable.firstPlayerTurns.map((combo) => combo.usedCombo);
+  _makeUsedBtnInCauruselDisabled(usedCombos);
+  return usedCombos;
+};
 
-//   if (isSmallStritCombination) {
-//     console.log('JaPerdole this is ', 'smallStritCombination');
-//   }
-// }
+function _makeUsedBtnInCauruselDisabled(usedCombos) {
+  usedCombos.forEach((cauruselBtn) => {
+    const btn = document.getElementById(cauruselBtn);
+    if (btn) {
+      btn.classList.add('non-clickable-carousel-Btn');
+    }
+  });
+}
 
+function makeUsedBtnInCauruselClickeble() {
+  const cauruselBtns = document.querySelectorAll('.comboModal-option');
+  console.log(cauruselBtns);
+  cauruselBtns.forEach((element) => {
+    if (element.classList.contains('non-clickable-carousel-Btn')) {
+      element.classList.remove('non-clickable-carousel-Btn');
+    }
+  });
+}
 
 // Add event listener to each option
 options.forEach((option) => option.addEventListener('click', selectOption));
@@ -133,4 +207,4 @@ options.forEach((option) => option.addEventListener('mouseout', lightOffDices));
 
 options.forEach((option) => option.addEventListener('click', makeDiceOnHoldInTurn));
 
-export {showModal};
+export {showModal, checkedWhatComboAlreadyUsed, makeUsedBtnInCauruselClickeble};

@@ -12,6 +12,7 @@ function drawNewDiceFromObj(diceContainer, dice) {
   newDiv.className = `dice_pic_${dice.value} main_item dice`;
   diceContainer.appendChild(newDiv);
   newDiv.setAttribute('id', `dice_${dice.id}`);
+  newDiv.setAttribute('data-value', dice.value);
 }
 
 function createDicesWithDiceValues() {

@@ -47,6 +47,7 @@ function setDiceScoreToTurn() {
     currentTurn.dices = existingTurnObj.dices;
     currentTurn.player = existingTurnObj.player;
     currentTurn.dicesSum = scoreTableResultSum();
+    currentTurn.usedCombo = existingTurnObj.usedCombo;
   } else {
     alert('no info');
   }
