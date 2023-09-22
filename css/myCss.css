@@ -135,4 +135,5 @@
   pointer-events: none; /* Disable pointer events to prevent interaction */
   opacity: 0.5; /* Optionally reduce opacity to visually indicate non-clickable state */
   cursor: not-allowed; /* Change cursor to indicate non-clickable state */
+  background-color: #6563ff;
 }

@@ -1,8 +1,9 @@
 import {readFromStorage} from './storage.js';
-import {showRollDiceBtn, showEndTurnBnt, makeDiceSectionVisible, createResultTable, showScoreTable} from './callbacks.js';
+import {showRollDiceBtn, showEndTurnBnt, makeDiceSectionVisible, createResultTable, showScoreTable, hideStartGameBtn, hideEndGameBtn, showEndGameBtn} from './callbacks.js';
 import {drawEmptyDices, drawDicesFromLastTurn, addBacklinghtFromCurrentTurn} from './dicesDrawer.js';
 
 function initializePage() {
+  hideEndGameBtn();
   const currentScoreTable = readFromStorage('currentScoreTable');
   if (currentScoreTable) {
     showRollDiceBtn();
@@ -13,6 +14,8 @@ function initializePage() {
     showScoreTable();
     createResultTable();
     addBacklinghtFromCurrentTurn();
+    hideStartGameBtn();
+    showEndGameBtn();
   }
 }
 

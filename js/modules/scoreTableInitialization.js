@@ -14,7 +14,8 @@ function initializeScoreTable() {
 
 function showScoreTable() {
   const scoreTableContainer = document.getElementById('resalt-table-section');
-  scoreTableContainer.classList.remove('invisible');
+  // scoreTableContainer.classList.remove('invisible');
+  scoreTableContainer.classList.toggle('invisible');
 }
 
 function showFirstPlayerInTable(currentScoreTable) {
