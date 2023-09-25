@@ -1,4 +1,4 @@
-import Turn from './turn.js';
+// import Turn from './turn.js';
 import Player from './player.js';
 import {readFromStorage} from '../modules/storage.js';
 
@@ -8,23 +8,28 @@ export default class ScoreTable {
     this.diceTotal = 1;
 
     this.firstPlayer = new Player;
-    this.firstPlayerTurns = new Turn;
+    this.firstPlayerTurns = [];
 
     this.secondPlayer = 'Computer';
-    this.secondPlayerTurns = new Turn;
+    this.secondPlayerTurns = [];
 
     this.firstPlayerTotal = null;
     this.secondPlayerTotal = null;
 
     this.firstPlayerComboUsed = null;
     this.secondPlayerComboUsed = null;
-
-    this.firstPlayerTurnsHistory = null;
-    this.secondPlayerTurnsHistory = null;
   }
 
   setFirstPlayerName() {
     const player = readFromStorage('currentPlayer');
     this.firstPlayer = player.name;
+  }
+
+  setFirstPlayerTurns() {
+
+  }
+
+  setFirstPlayerTotalScore() {
+
   }
 }

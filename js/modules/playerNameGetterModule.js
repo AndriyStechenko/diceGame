@@ -1,4 +1,3 @@
-import {initializeScoreTable} from './scoreTableInitialization.js';
 import {initializePlayer} from './playerInitialization.js';
 import {readFromStorage} from './storage.js';
 
@@ -40,6 +39,10 @@ function submitPlayersNameFormModule() {
   return player;
 }
 
+function changeTextInPlayerNameHolder() {
+  playerNameHolder.innerHTML = `Be ready to play the GAME !!!`;
+}
+
 closeBtn.addEventListener('click', closeModal);
 
-export {submitPlayersNameFormModule, showNewPlayerFormModal, playerIsKnown};
+export {submitPlayersNameFormModule, showNewPlayerFormModal, playerIsKnown, changeTextInPlayerNameHolder};

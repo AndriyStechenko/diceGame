@@ -1,20 +1,18 @@
-// import dice from "/js/models/dice.js";
 import Dice from '../models/dice.js';
+import {readFromStorage, saveToStorage} from './storage.js';
 
 function createDiceWithValue() {
   const dice = new Dice();
   dice.throwDice();
   return dice;
-//    let diceWithValue = Object.assign({},obj)
-  // diceWithValue.throwDice()
-  // return diceWithValue;
 }
 
-function drowNewDiceFromObj(diceContainer, dice) {
+function drawNewDiceFromObj(diceContainer, dice) {
   const newDiv = document.createElement('div');
-  newDiv.className = `dice_pic_${dice.value} main_item `;
+  newDiv.className = `dice_pic_${dice.value} main_item dice`;
   diceContainer.appendChild(newDiv);
   newDiv.setAttribute('id', `dice_${dice.id}`);
+  newDiv.setAttribute('data-value', dice.value);
 }
 
 function createDicesWithDiceValues() {
@@ -30,9 +28,115 @@ function createDicesWithDiceValues() {
 function drawAllDices(dices) {
   const diceContainer = document.getElementById('dice-container');
   for (const dice of dices) {
-    drowNewDiceFromObj(diceContainer, dice);
+    drawNewDiceFromObj(diceContainer, dice);
+  }
+  const diceElements = document.querySelectorAll('.dice');
+  diceElements.forEach((diceElement) => {
+    diceElement.addEventListener('click', holdDice);
+  });
+  diceElements.forEach((diceElement) => {
+    diceElement.addEventListener('click', onHoldLightTooggle);
+  });
+  diceElements.forEach((diceElement) => {
+    diceElement.addEventListener('click', removeOnHoldFromDice);
+  });
+}
+
+function eraseDicesContainer() {
+  const diceSectionElement = document.getElementById('dice-container');
+  diceSectionElement.innerHTML = '';
+}
+
+function clearDiceContainer() {
+  const diceContainer = document.getElementById('dice-container');
+  const diceChildren = diceContainer.childNodes;
+
+  for (let diceNode = diceChildren.length - 1; diceNode >= 0; diceNode--) {
+    diceContainer.removeChild(diceChildren[diceNode]);
   }
 }
 
+function drawEmptyDices() {
+  clearDiceContainer();
 
-export {createDicesWithDiceValues, drawAllDices};
+  const diceContainer = document.getElementById('dice-container');
+  for (let i = 0; i < 5; i++) {
+    const diceObject = document.createElement('img');
+    diceObject.src = 'pic/dicePic/dice0.png';
+    diceObject.alt = 'Dice ' + (i + 1);
+    diceObject.className = 'main_item';
+    diceContainer.appendChild(diceObject);
+  }
+}
+
+function makeDiceSectionVisible() {
+  const diceSectionElement = document.getElementById('dice-section');
+  diceSectionElement.classList.toggle('invisible');
+}
+
+function drawDicesFromLastTurn() {
+  clearDiceContainer();
+  const currentTurn = readFromStorage('currentTurn');
+  if (currentTurn) {
+    const currentDices = currentTurn.dices;
+    drawAllDices(currentDices);
+  }
+}
+
+function holdDice(event) {
+  // read dice from memory by number
+  const currentTurn = readFromStorage('currentTurn');
+  let diceNumber = event.target.id;
+  diceNumber = diceNumber[diceNumber.length-1];
+  const diceData = currentTurn.dices.find((dice) => dice.id.toString() === diceNumber);
+  if (diceData) {
+    diceData.onHold = true;
+  }
+  const index = currentTurn.dices.findIndex((dice) => dice.id === diceData.id);
+  if (index !== -1) {
+    currentTurn.dices[index] = diceData;
+  };
+  saveToStorage('currentTurn', currentTurn);
+}
+
+function onHoldLightTooggle(event) {
+  const diceNumberId = event.target.id;
+  console.log(diceNumberId);
+  const diceElement = document.getElementById(diceNumberId);
+  diceElement.classList.toggle('dice-on-hold-back-light');
+};
+
+function removeOnHoldFromDice(event) {
+  const diceClass = event.target.classList[event.target.classList.length-1];
+  let diceNumber = event.target.id;
+  diceNumber = diceNumber[diceNumber.length-1];
+  if (diceClass !== 'dice-on-hold-back-light') {
+    diceOnHoldSwitcher(diceNumber);
+  }
+}
+
+function diceOnHoldSwitcher(diceNumber) {
+  const currentTurn = readFromStorage('currentTurn');
+  const diceWithId = currentTurn.dices.find((dice) => dice.id.toString() === diceNumber);
+  if (diceWithId) {
+    diceWithId.onHold = false;
+  }
+  saveToStorage('currentTurn', currentTurn);
+}
+
+function addBacklinghtFromCurrentTurn() {
+  const currentTurn = readFromStorage('currentTurn');
+  if (currentTurn) {
+    for (const dice of currentTurn.dices) {
+      const diceId = dice.id;
+      const diceOnHoldValue = dice.onHold;
+      if (diceOnHoldValue === true) {
+        const diceIdInHtml = `dice_${diceId}`;
+        const diceElement = document.getElementById(diceIdInHtml);
+        diceElement.classList.add('dice-on-hold-back-light');
+      }
+    }
+  }
+}
+
+export {createDicesWithDiceValues, drawAllDices, eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible, drawDicesFromLastTurn, holdDice, addBacklinghtFromCurrentTurn, onHoldLightTooggle};

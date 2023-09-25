@@ -1,11 +1,11 @@
 import ScoreTable from '../models/scoreTable.js';
 import {readFromStorage, saveToStorage} from '../modules/storage.js';
 
-
 function initializeScoreTable() {
   const currentScoreTable = new ScoreTable;
   currentScoreTable.setFirstPlayerName();
-
+  currentScoreTable.setFirstPlayerTurns();
+  currentScoreTable.setFirstPlayerTotalScore();
   showFirstPlayerInTable(currentScoreTable);
   showSecondPlayerInTable(currentScoreTable);
 
@@ -14,30 +14,39 @@ function initializeScoreTable() {
 
 function showScoreTable() {
   const scoreTableContainer = document.getElementById('resalt-table-section');
-  scoreTableContainer.classList.remove('invisible');
+  // scoreTableContainer.classList.remove('invisible');
+  scoreTableContainer.classList.toggle('invisible');
 }
 
 function showFirstPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player1Name');
-  playerNameCell.textContent = currentScoreTable.firstPlayer.name;
+  if (playerNameCell) {
+    playerNameCell.textContent = currentScoreTable.firstPlayer;
+  } else {
+    const resaltTableSection = document.getElementById('resalt-table-section');
+    const playerNameCell = resaltTableSection.querySelector('th:nth-child(2)');
+    playerNameCell.textContent = currentScoreTable.firstPlayer;
+  }
 }
 
 function showSecondPlayerInTable(currentScoreTable) {
   const playerNameCell = document.getElementById('player2Name');
-  playerNameCell.textContent = currentScoreTable.secondPlayer.name;
+  if (playerNameCell) {
+    playerNameCell.textContent = currentScoreTable.secondPlayer;
+  } else {
+    const resaltTableSection = document.getElementById('resalt-table-section');
+    const playerNameCell = resaltTableSection.querySelector('th:nth-child(3)');
+    playerNameCell.textContent = currentScoreTable.secondPlayer;
+  }
 }
 
 function scoreTableResultSum() {
   let sum = 0;
-  const turnScore = readFromStorage('currentTurn');
-  for (const dice of turnScore.dices) {
-    sum += dice.value;
-  }
-
-  const firstTurnRow = document.querySelector('#resalt-table-section tbody tr:nth-child(1)');
-  const firstTdNode = firstTurnRow.querySelector('td');
-  firstTdNode.textContent = sum;
-
+  const currentTurn = readFromStorage('currentTurn');
+  // for (const dice of currentTurn.dices) {
+  //   sum += dice.value;
+  // }
+  sum = currentTurn.dicesSum;
   return sum;
 }
 
@@ -46,23 +55,9 @@ function createScoreTable(currentScoreTable) {
   return currentScoreTable;
 }
 
-function addPlayersNameToScoreTable() {
+function addPlayerScoreToScoreTable(currentScoreTable) {
   const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
-  if (existingScoreTable) {
-    currentScoreTable.firstPlayer = currentTurn.player;
-  }
-  saveToStorage('currentScoreTable', currentScoreTable );
-
-  return currentScoreTable;
-}
-
-function addPlayerScoreToScoreTable() {
-  const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
-  if (existingScoreTable) {
+  if (currentScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
   }
@@ -73,13 +68,15 @@ function addPlayerScoreToScoreTable() {
 
 function setPlayerTurnsInfoToScoreTable() {
   const currentTurn = readFromStorage('currentTurn');
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const currentScoreTable = new ScoreTable;
-  if (existingScoreTable) {
+  const currentScoreTable = readFromStorage('currentScoreTable');
+
+  if (currentScoreTable) {
     currentScoreTable.firstPlayer = currentTurn.player;
     currentScoreTable.firstPlayerTotal = currentTurn.dicesSum;
-    currentScoreTable.firstPlayerTurnsHistory = currentTurn;
+    currentScoreTable.firstPlayerComboUsed = currentTurn.usedCombo;
+    currentScoreTable.firstPlayerTurns.push(currentTurn);
   }
+
   saveToStorage('currentScoreTable', currentScoreTable );
 
   return currentScoreTable;
@@ -90,6 +87,88 @@ function readScoreTable() {
   console.log(currentScoreTable);
 }
 
+// function createResultTable() {
+//   const tableContainer = document.getElementById('resalt-table-section');
+//   const table = document.createElement('table');
+//   table.className = 'table';
+
+//   const thead = document.createElement('thead');
+//   const headRow = document.createElement('tr');
+
+//   // const existingScoreTable = readFromStorage('currentScoreTable');
+//   const currentScoreTable = readFromStorage('currentScoreTable');
+
+//   const headers = ['#', currentScoreTable.firstPlayer, currentScoreTable.secondPlayer];
+
+//   headers.forEach((headerText) => {
+//     const th = document.createElement('th');
+//     th.scope = 'col';
+//     th.textContent = headerText;
+//     headRow.appendChild(th);
+//   });
+
+//   thead.appendChild(headRow);
+//   table.appendChild(thead);
+
+//   const tbody = document.createElement('tbody');
+
+//   for (let turnRowNumer = 1; turnRowNumer <= 6; turnRowNumer++) {
+//     const row = document.createElement('tr');
+
+//     const rowHeader = document.createElement('th');
+//     rowHeader.scope = 'row';
+//     rowHeader.textContent = turnRowNumer;
+
+//     const player1Cell = document.createElement('td');
+//     const player2Cell = document.createElement('td');
+
+//     const firstPlayerTurn = currentScoreTable.firstPlayerTurns[turnRowNumer - 1];
+//     player1Cell.textContent = firstPlayerTurn ? firstPlayerTurn.dicesSum : '-';
+
+//     const secondPlayerTurn = currentScoreTable.secondPlayerTurns[turnRowNumer - 1];
+//     player2Cell.textContent = secondPlayerTurn ? secondPlayerTurns.dicesSum : '-';
+
+//     row.appendChild(rowHeader);
+//     row.appendChild(player1Cell);
+//     row.appendChild(player2Cell);
+
+//     tbody.appendChild(row);
+//   }
+
+
+//   const remainingRowsData = [
+//     {text: 'Combo', colspan: 2, content: '***'},
+//     {text: 'Small strit', colspan: 2, content: ''},
+//     {text: 'Big Strit', colspan: 2, content: ''},
+//     {text: 'Full', colspan: 2, content: ''},
+//     {text: 'Success', colspan: 2, content: ''},
+//     {text: 'Pocker', colspan: 2, content: ''},
+//     {text: 'Total Score', colspan: 2, content: ''},
+//   ];
+
+//   remainingRowsData.forEach((rowData) => {
+//     const row = document.createElement('tr');
+
+//     const rowHeader = document.createElement('th');
+//     rowHeader.scope = 'row';
+//     rowHeader.textContent = rowData.text;
+
+//     const cell = document.createElement('td');
+//     cell.colSpan = rowData.colspan;
+//     cell.textContent = rowData.content;
+
+//     row.appendChild(rowHeader);
+//     row.appendChild(cell);
+
+//     tbody.appendChild(row);
+//   });
+
+//   table.appendChild(tbody);
+
+//   tableContainer.innerHTML = '';
+//   tableContainer.appendChild(table);
+// }
+
 function createResultTable() {
   const tableContainer = document.getElementById('resalt-table-section');
   const table = document.createElement('table');
@@ -98,8 +177,9 @@ function createResultTable() {
   const thead = document.createElement('thead');
   const headRow = document.createElement('tr');
 
-  const existingScoreTable = readFromStorage('currentScoreTable');
-  const headers = ['#', existingScoreTable.firstPlayer.name, existingScoreTable.secondPlayer.name];
+  const currentScoreTable = readFromStorage('currentScoreTable');
+
+  const headers = ['#', currentScoreTable.firstPlayer, currentScoreTable.secondPlayer];
 
   headers.forEach((headerText) => {
     const th = document.createElement('th');
@@ -113,15 +193,21 @@ function createResultTable() {
 
   const tbody = document.createElement('tbody');
 
-  for (let columnNumber = 1; columnNumber <= 6; columnNumber++) {
+  for (let turnRowNumber = 1; turnRowNumber <= 6; turnRowNumber++) {
     const row = document.createElement('tr');
 
     const rowHeader = document.createElement('th');
     rowHeader.scope = 'row';
-    rowHeader.textContent = columnNumber;
+    rowHeader.textContent = turnRowNumber;
 
     const player1Cell = document.createElement('td');
     const player2Cell = document.createElement('td');
+
+    const firstPlayerTurn = currentScoreTable.firstPlayerTurns[turnRowNumber - 1];
+    player1Cell.textContent = firstPlayerTurn ? firstPlayerTurn.dicesSum : '-';
+
+    const secondPlayerTurn = currentScoreTable.secondPlayerTurns[turnRowNumber - 1];
+    player2Cell.textContent = secondPlayerTurn ? secondPlayerTurn.dicesSum : '-';
 
     row.appendChild(rowHeader);
     row.appendChild(player1Cell);
@@ -130,17 +216,18 @@ function createResultTable() {
     tbody.appendChild(row);
   }
 
-  const remainingRowsData = [
-    {text: 'Combo', colspan: 2, content: '***'},
-    {text: 'Small strit', colspan: 2, content: ''},
-    {text: 'Big Strit', colspan: 2, content: ''},
-    {text: 'Full', colspan: 2, content: ''},
-    {text: 'Success', colspan: 2, content: ''},
-    {text: 'Pocker', colspan: 2, content: ''},
-    {text: 'Total Score', colspan: 2, content: ''},
+  // Add combo rows
+  const comboRowsData = [
+    {text: 'Combo', content: '***'},
+    {text: 'Small strit', content: ''},
+    {text: 'Big Strit', content: ''},
+    {text: 'Full', content: ''},
+    {text: 'Success', content: ''},
+    {text: 'Pocker', content: ''},
+    {text: 'Total Score', content: ''},
   ];
 
-  remainingRowsData.forEach((rowData) => {
+  comboRowsData.forEach((rowData) => {
     const row = document.createElement('tr');
 
     const rowHeader = document.createElement('th');
@@ -148,7 +235,7 @@ function createResultTable() {
     rowHeader.textContent = rowData.text;
 
     const cell = document.createElement('td');
-    cell.colSpan = rowData.colspan;
+    cell.colSpan = 2;
     cell.textContent = rowData.content;
 
     row.appendChild(rowHeader);
@@ -161,7 +248,7 @@ function createResultTable() {
 
   tableContainer.innerHTML = '';
   tableContainer.appendChild(table);
-  scoreTableResultSum();
 }
 
-export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayersNameToScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
+
+export {initializeScoreTable, scoreTableResultSum, showScoreTable, createScoreTable, addPlayerScoreToScoreTable, readScoreTable, setPlayerTurnsInfoToScoreTable, createResultTable};
