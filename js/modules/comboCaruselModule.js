@@ -1,4 +1,3 @@
-// import {holdDice} from './dicesDrawer.js';
 import {readFromStorage} from './storage.js';
 import {saveToStorage} from './storage.js';
 
@@ -7,11 +6,13 @@ const options = document.querySelectorAll('.comboModal-option');
 let optionClicked = false;
 
 function showModal() {
-  modal.style.display = 'flex';
+  modal.classList.remove('d-none');
+  modal.classList.add('d-flex');
 }
 
 function hideModal() {
-  modal.style.display = 'none';
+  modal.classList.remove('d-flex');
+  modal.classList.add('d-none');
 }
 
 function selectOption(carouselElement) {

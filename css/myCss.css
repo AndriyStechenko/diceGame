@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
+
 .one{
     color: rgb(224, 16, 16);
 }
@@ -15,9 +17,9 @@
 
 .main_item{
   /* padding: 10px; */
-  margin-right: 5px;
-  height: 128px;
-  width: 128px;
+  margin-right: 0.3125em;
+  height: 8em;
+  width: 8em;
   border-radius: 20%;
 
   animation: bounce; 
@@ -136,4 +138,74 @@
   opacity: 0.5; /* Optionally reduce opacity to visually indicate non-clickable state */
   cursor: not-allowed; /* Change cursor to indicate non-clickable state */
   background-color: #6563ff;
+}
+
+/* ************************************** */
+/* End Game modal */
+.endGameModal-modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  overflow: hidden;
+  padding-top: 6%;
+  /* Apply the animation to the modal */
+  animation: fadeIn 0.5s ease-in-out; /* Adjust the duration as needed */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* body {
+  background: #111;
+} */
+.hidden {
+  opacity:0;
+}
+.console-container {
+  font-family:Khula;
+  font-size:4em;
+  text-align:center;
+  height:200px;
+  width:600px;
+  display:block;
+  position:absolute;
+  color:white;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+}
+
+.console-underscore {
+   display:inline-block;
+  position:relative;
+  top:-0.14em;
+  left:10px;
+}
+
+.hidden {
+    display: none;
+  }
+
+.bottom-center-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    margin-bottom: 300px;
 }

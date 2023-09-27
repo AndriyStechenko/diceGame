@@ -6,7 +6,9 @@ import {initializeScoreTable, showScoreTable, createScoreTable, setPlayerTurnsIn
 import {rollDice} from './actions.js';
 import {eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible} from './dicesDrawer.js';
 import {showModal, checkedWhatComboAlreadyUsed, makeUsedBtnInCauruselClickeble} from './comboCaruselModule.js';
+import {showEndGameModal, hideEndGameModal} from './endGameModule.js';
 
+const startGameBtn = document.getElementById('start-game-btn');
 const rollDiceBtn = document.getElementById('roll-dice-btn');
 const endRollBtn = document.getElementById('end-turn-btn');
 const endGameBtn = document.getElementById('end-game-btn');
@@ -19,9 +21,8 @@ function showRollDiceBtn() {
   rollDiceBtn.classList.toggle('invisible');
 }
 
-function hideStartGameBtn() {
-  const startGameBtnSection = document.getElementById('start-game-btn');
-  startGameBtnSection.classList.toggle('invisible');
+function toggleVisebilityStartGameBtn() {
+  startGameBtn.classList.toggle('invisible');
 }
 
 function hidePlayerNameHolder() {
@@ -35,13 +36,16 @@ function showPlayerNameHolder() {
 }
 
 function showEndGameBtn() {
-  // const endGameBtn = document.getElementById('end-game-btn');
-  endGameBtn.style.display = '';
+  // endGameBtn.style.display = '';
+
+  endGameBtn.classList.remove('d-none');
+  endGameBtn.classList.add('d-flex');
 }
 
 function hideEndGameBtn() {
-  // const endGameBtn = document.getElementById('end-game-btn');
-  endGameBtn.style.display = 'none';
+  endGameBtn.classList.remove('d-flex');
+  endGameBtn.classList.add('d-none');
+  // endGameBtn.style.display = 'none';
 }
 
 function deleteScoreTableFromPage() {
@@ -51,12 +55,8 @@ function deleteScoreTableFromPage() {
   }
 }
 
-function showEndGameMessege() {
-  alert('End Game');
-}
-
 function endGameBtnActions() {
-  hideStartGameBtn();
+  toggleVisebilityStartGameBtn();
   localStorage.clear();
   makeDiceSectionVisible();
   drawEmptyDices();
@@ -85,7 +85,7 @@ function startGameBtnActions() {
     prepareScoreTable();
   }
   makeUsedBtnInCauruselClickeble();
-  hideStartGameBtn();
+  toggleVisebilityStartGameBtn();
   hidePlayerNameHolder();
   showEndGameBtn();
 }
@@ -106,8 +106,45 @@ function endRollBtnActions() {
   if (currentScoreTable.firstPlayerTurns.length >= 6) {
     showRollDiceBtn();
     showEndTurnBnt();
-    showEndGameMessege();
+    showEndGameModal();
   }
+}
+
+function startNewGameActionsFromModal() {
+  hideEndGameModal();
+
+  toggleVisebilityStartGameBtn();
+  localStorage.clear();
+  makeDiceSectionVisible();
+  drawEmptyDices();
+  showRollDiceBtn();
+  showEndTurnBnt();
+  deleteScoreTableFromPage();
+  // showScoreTable();
+  showPlayerNameHolder();
+  changeTextInPlayerNameHolder();
+  location.reload();
+
+  showNewPlayerFormModal();
+  const currentScoreTable = readFromStorage('currentScoreTable');
+  if (currentScoreTable && currentScoreTable.firstPlayerTurns.length < 6) {
+    showRollDiceBtn();
+    showEndTurnBnt();
+  } else if (currentScoreTable === null) {
+    showRollDiceBtn();
+    showEndTurnBnt();
+  }
+  makeDiceSectionVisible();
+  drawEmptyDices();
+  if (playerIsKnown()) {
+    prepareScoreTable();
+  }
+  makeUsedBtnInCauruselClickeble();
+  toggleVisebilityStartGameBtn();
+  hidePlayerNameHolder();
+  showEndGameBtn();
+  // endGameBtn.click();
+  // startGameBtn.click();
 }
 
 function afterSaveNewPlayerActions() {
@@ -121,4 +158,4 @@ function prepareScoreTable() {
   createScoreTable(currentScoreTable);
 }
 
-export {startGameBtnActions, afterSaveNewPlayerActions, afterRollDiceActions, endRollBtnActions, showEndTurnBnt, showRollDiceBtn, makeDiceSectionVisible, prepareScoreTable, createResultTable, showScoreTable, endGameBtnActions, hideStartGameBtn, hideEndGameBtn, showEndGameBtn};
+export {startGameBtnActions, afterSaveNewPlayerActions, afterRollDiceActions, endRollBtnActions, showEndTurnBnt, showRollDiceBtn, makeDiceSectionVisible, prepareScoreTable, createResultTable, showScoreTable, endGameBtnActions, toggleVisebilityStartGameBtn, hideEndGameBtn, showEndGameBtn, startNewGameActionsFromModal};
