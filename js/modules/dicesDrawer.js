@@ -139,4 +139,4 @@ function addBacklinghtFromCurrentTurn() {
   }
 }
 
-export {createDicesWithDiceValues, drawAllDices, eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible, drawDicesFromLastTurn, holdDice, addBacklinghtFromCurrentTurn, onHoldLightTooggle};
+export {createDicesWithDiceValues, drawAllDices, eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible, drawDicesFromLastTurn, holdDice, addBacklinghtFromCurrentTurn, onHoldLightTooggle, createDiceWithValue};

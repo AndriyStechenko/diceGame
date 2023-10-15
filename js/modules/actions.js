@@ -1,7 +1,7 @@
 
 import {initializeTurn, setPlayersNameToTurn} from './turnInitialization.js';
 import {createDicesWithDiceValues, drawAllDices} from './dicesDrawer.js';
-import {readFromStorage, saveToStorage} from './storage.js';
+import {saveToStorage} from './storage.js';
 
 function rollDice() {
   const turn = initializeTurn();

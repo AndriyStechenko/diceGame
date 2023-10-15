@@ -10,11 +10,22 @@ import {showEndGameModal, hideEndGameModal} from './endGameModule.js';
 
 const startGameBtn = document.getElementById('start-game-btn');
 const rollDiceBtn = document.getElementById('roll-dice-btn');
-const endRollBtn = document.getElementById('end-turn-btn');
+const endTurnBtn = document.getElementById('end-turn-btn');
 const endGameBtn = document.getElementById('end-game-btn');
 
+
+function showReRollDiceBtn() {
+  const reRollDiceBtn = document.getElementById('re-roll-dice-btn');
+  reRollDiceBtn.style.display = '';
+}
+
+function hideReRollDiceBtn() {
+  const reRollDiceBtn = document.getElementById('re-roll-dice-btn');
+  reRollDiceBtn.style.display = 'none';
+}
+
 function showEndTurnBnt() {
-  endRollBtn.classList.toggle('invisible');
+  endTurnBtn.classList.toggle('invisible');
 }
 
 function showRollDiceBtn() {
@@ -55,6 +66,13 @@ function deleteScoreTableFromPage() {
   }
 }
 
+function hideendTurnBtnAndShowRerollBtn() {
+  // showRollDiceBtn();
+  // hideReRollDiceBtn();
+  showReRollDiceBtn();
+  showEndTurnBnt();
+}
+
 function endGameBtnActions() {
   toggleVisebilityStartGameBtn();
   localStorage.clear();
@@ -74,10 +92,10 @@ function startGameBtnActions() {
   const currentScoreTable = readFromStorage('currentScoreTable');
   if (currentScoreTable && currentScoreTable.firstPlayerTurns.length < 6) {
     showRollDiceBtn();
-    showEndTurnBnt();
+    // showEndTurnBnt();
   } else if (currentScoreTable === null) {
     showRollDiceBtn();
-    showEndTurnBnt();
+    // showEndTurnBnt();
   }
   makeDiceSectionVisible();
   drawEmptyDices();
@@ -96,12 +114,16 @@ function afterRollDiceActions() {
   rollDice();
   showModal();
   checkedWhatComboAlreadyUsed();
+  showEndTurnBnt();
+  showRollDiceBtn();
 }
 
-function endRollBtnActions() {
+function endTurnBtnActions() {
   setDiceScoreToTurn();
   setPlayerTurnsInfoToScoreTable();
   createResultTable();
+  showRollDiceBtn();
+  showEndTurnBnt();
   const currentScoreTable = readFromStorage('currentScoreTable');
   if (currentScoreTable.firstPlayerTurns.length >= 6) {
     showRollDiceBtn();
@@ -124,27 +146,6 @@ function startNewGameActionsFromModal() {
   showPlayerNameHolder();
   changeTextInPlayerNameHolder();
   location.reload();
-
-  showNewPlayerFormModal();
-  const currentScoreTable = readFromStorage('currentScoreTable');
-  if (currentScoreTable && currentScoreTable.firstPlayerTurns.length < 6) {
-    showRollDiceBtn();
-    showEndTurnBnt();
-  } else if (currentScoreTable === null) {
-    showRollDiceBtn();
-    showEndTurnBnt();
-  }
-  makeDiceSectionVisible();
-  drawEmptyDices();
-  if (playerIsKnown()) {
-    prepareScoreTable();
-  }
-  makeUsedBtnInCauruselClickeble();
-  toggleVisebilityStartGameBtn();
-  hidePlayerNameHolder();
-  showEndGameBtn();
-  // endGameBtn.click();
-  // startGameBtn.click();
 }
 
 function afterSaveNewPlayerActions() {
@@ -158,4 +159,5 @@ function prepareScoreTable() {
   createScoreTable(currentScoreTable);
 }
 
-export {startGameBtnActions, afterSaveNewPlayerActions, afterRollDiceActions, endRollBtnActions, showEndTurnBnt, showRollDiceBtn, makeDiceSectionVisible, prepareScoreTable, createResultTable, showScoreTable, endGameBtnActions, toggleVisebilityStartGameBtn, hideEndGameBtn, showEndGameBtn, startNewGameActionsFromModal};
+// eslint-disable-next-line max-len
+export {startGameBtnActions, afterSaveNewPlayerActions, afterRollDiceActions, endTurnBtnActions, showEndTurnBnt, showRollDiceBtn, makeDiceSectionVisible, prepareScoreTable, createResultTable, showScoreTable, endGameBtnActions, toggleVisebilityStartGameBtn, hideEndGameBtn, showEndGameBtn, startNewGameActionsFromModal, hideendTurnBtnAndShowRerollBtn, showReRollDiceBtn, hideReRollDiceBtn};
