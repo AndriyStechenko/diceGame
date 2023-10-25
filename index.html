@@ -36,6 +36,10 @@
             </a>
           <button id="start-game-btn" class="btn btn-primary mr-2">Start Game!</button>
           <button id="end-game-btn" class="btn btn-primary mr-2">End Game</button>
+            <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComboWithBootStrap">
+              Launch demo modal
+          </button>
           </div>
         </nav> 
         <div class="row invisible" id="dice-section">
@@ -139,7 +143,7 @@
     </div>
   <!-- The modal window -->
   <div id="playerNameModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content-player-name-modal">
       <span class="close">&times;</span>
       <h2>Players name:</h2>
       <input type="text" class="form-control" id="playerNameInput" placeholder="Serun Hatniy">
@@ -149,18 +153,50 @@
   <!-- The modal window for combos-->
   <div id="comboModal" class="comboModal-modal d-none">
     <div class="comboModal-carousel">
-      <div class="comboModal-option" id="oneCombination">oneCombination 1</div>
-      <div class="comboModal-option" id="twoCombination">twoCombination 2</div>
-      <div class="comboModal-option" id="threeCombination">threeCombination 3</div>
-      <div class="comboModal-option" id="fourCombination">fourCombination 4</div>
-      <div class="comboModal-option" id="fiveCombination">fiveCombination 5</div>
-      <div class="comboModal-option" id="sixCombination">sixCombination 6</div>
-      <div class="comboModal-option" id="smallStritCombination">smallStritCombination 7</div>
-      <div class="comboModal-option" id="bigStritCombination">bigStritCombination 8</div>
-      <div class="comboModal-option" id="fullCombination">fullCombination 9</div>
-      <div class="comboModal-option" id="successCombination">successCombination 10</div>
-      <div class="comboModal-option" id="pokerCombination">pokerCombination 11</div>
-      <div class="comboModal-option" id="chooseAndReRollDices">Choose dices for reRoll</div>
+      <div class="row">
+        <div class="col-6">
+          <div class="comboModal-option" id="oneCombination">oneCombination 1</div>
+          <div class="comboModal-option" id="twoCombination">twoCombination 2</div>
+          <div class="comboModal-option" id="threeCombination">threeCombination 3</div>
+          <div class="comboModal-option" id="fourCombination">fourCombination 4</div>
+          <div class="comboModal-option" id="fiveCombination">fiveCombination 5</div>
+          <div class="comboModal-option" id="sixCombination">sixCombination 6</div>
+        </div>
+        <div class="col-6">
+          <div class="comboModal-option" id="smallStritCombination">smallStritCombination 7</div>
+          <div class="comboModal-option" id="bigStritCombination">bigStritCombination 8</div>
+          <div class="comboModal-option" id="fullCombination">fullCombination 9</div>
+          <div class="comboModal-option" id="successCombination">successCombination 10</div>
+          <div class="comboModal-option" id="pokerCombination">pokerCombination 11</div>
+          <div class="comboModal-option" id="chooseAndReRollDices">Choose dices for reRoll</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- The modal window for Combos with bootstrap-->
+  <div class="modal fade" id="modalComboWithBootStrap" tabindex="-1" aria-labelledby="modalComboWithBootStrapLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 ms-auto"> 
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="oneCombination">oneCombination 1</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="twoCombination">twoCombination 2</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="threeCombination">threeCombination 3</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="fourCombination">fourCombination 4</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="fiveCombination">fiveCombination 5</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="sixCombination">sixCombination 6</button></div>
+            <div class="col-md-6 ms-auto">
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="smallStritCombination">smallStritCombination 7</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="bigStritCombination">bigStritCombination 8</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="fullCombination">fullCombination 9</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="successCombination">successCombination 10</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="pokerCombination">pokerCombination 11</button>
+              <button type="button" class="btn btn-primary comboModal-option-custom" id="chooseAndReRollDices">Choose dices for reRoll</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- The modal window for endGameModal-->

@@ -17,4 +17,9 @@ export default class Turn {
     const playerName = readFromStorage('currentPlayer');
     this.player = playerName.name;
   }
+
+  setCompName() {
+    const playerName = readFromStorage('computer');
+    this.player = playerName.name;
+  }
 }

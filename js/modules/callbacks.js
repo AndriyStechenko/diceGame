@@ -7,6 +7,7 @@ import {rollDice} from './actions.js';
 import {eraseDicesContainer, drawEmptyDices, makeDiceSectionVisible} from './dicesDrawer.js';
 import {showModal, checkedWhatComboAlreadyUsed, makeUsedBtnInCauruselClickeble} from './comboCaruselModule.js';
 import {showEndGameModal, hideEndGameModal} from './endGameModule.js';
+import {compTurnTime, initializeCompPlayer} from './computerPlayer.js';
 
 const startGameBtn = document.getElementById('start-game-btn');
 const rollDiceBtn = document.getElementById('roll-dice-btn');
@@ -106,6 +107,7 @@ function startGameBtnActions() {
   toggleVisebilityStartGameBtn();
   hidePlayerNameHolder();
   showEndGameBtn();
+  initializeCompPlayer();
 }
 
 function afterRollDiceActions() {
@@ -130,11 +132,11 @@ function endTurnBtnActions() {
     showEndTurnBnt();
     showEndGameModal();
   }
+  compTurnTime();
 }
 
 function startNewGameActionsFromModal() {
   hideEndGameModal();
-
   toggleVisebilityStartGameBtn();
   localStorage.clear();
   makeDiceSectionVisible();
